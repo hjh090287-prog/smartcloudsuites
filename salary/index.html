@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NZ Salary Calculator 2025-2026 | Take Home Pay After Tax | PAYE, KiwiSaver, ACC</title>
+  <meta name="description" content="Free NZ Salary Calculator for 2025-2026. Instantly calculate your take-home pay after PAYE tax, ACC levy, KiwiSaver & student loan deductions. Updated for April 2025 tax rates.">
+  <meta name="keywords" content="NZ salary calculator, PAYE calculator NZ, take home pay NZ, salary after tax New Zealand, KiwiSaver calculator, ACC levy, student loan repayment NZ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nzsalarycalc.co.nz/">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Google AdSense - Global Deployment Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --text-primary: #f0f0f5;
+      --text-secondary: rgba(240,240,245,0.6);
+      --text-muted: rgba(240,240,245,0.35);
+      --accent: #6c5ce7;
+      --accent-glow: rgba(108,92,231,0.3);
+      --green: #00b894;
+      --green-glow: rgba(0,184,148,0.25);
+      --red: #e17055;
+      --orange: #fdcb6e;
+      --blue: #74b9ff;
+      --pink: #fd79a8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(108,92,231,0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(0,184,148,0.04) 0%, transparent 50%);
+      z-index: -1; animation: bgShift 20s ease infinite alternate;
+    }
+    @keyframes bgShift { to { transform: translate(5%, 3%); } }
+
+    /* HEADER */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.8);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    .header-badge {
+      font-size: 0.7rem; padding: 4px 10px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text-secondary);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center; padding: 60px 24px 30px;
+      max-width: 700px; margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900; letter-spacing: -1.5px;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+    .hero h1 span { background: linear-gradient(135deg, var(--accent), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; }
+
+    /* MAIN GRID */
+    .main-grid {
+      max-width: 1200px; margin: 0 auto; padding: 30px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    @media(max-width:768px) { .main-grid { grid-template-columns: 1fr; } }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+    .card:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.12); }
+    .card-title {
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-muted); margin-bottom: 20px;
+    }
+
+    /* FORM */
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 0.8rem; font-weight: 500;
+      color: var(--text-secondary); margin-bottom: 6px;
+    }
+    .form-group input, .form-group select {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text-primary);
+      font-size: 1rem; font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-group input::placeholder { color: var(--text-muted); }
+
+    /* PERIOD TOGGLE */
+    .period-toggle {
+      display: flex; gap: 4px; padding: 4px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px; margin-bottom: 24px;
+    }
+    .period-btn {
+      flex: 1; padding: 8px 4px;
+      background: transparent; border: none;
+      color: var(--text-muted); font-size: 0.75rem;
+      font-weight: 600; font-family: 'Inter', sans-serif;
+      border-radius: 8px; cursor: pointer; transition: all 0.2s;
+    }
+    .period-btn.active {
+      background: var(--accent); color: white;
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+
+    /* CHECKBOXES */
+    .checkbox-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 18px; height: 18px; accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .checkbox-row label {
+      font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; margin-bottom: 0;
+    }
+
+    /* RESULTS */
+    .result-hero {
+      text-align: center; padding: 30px 0; margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-hero .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .result-hero .amount {
+      font-size: clamp(3rem, 6vw, 4.2rem);
+      font-weight: 900; letter-spacing: -2px;
+      background: linear-gradient(135deg, var(--green), #55efc4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin: 8px 0;
+    }
+    .result-hero .sub { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+
+    /* BREAKDOWN BARS */
+    .breakdown-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .breakdown-item:last-child { border-bottom: none; }
+    .breakdown-left { display: flex; align-items: center; gap: 10px; }
+    .breakdown-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .breakdown-label { font-size: 0.85rem; color: var(--text-secondary); }
+    .breakdown-value { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
+
+    /* CHART */
+    .chart-container { display: flex; justify-content: center; margin: 20px 0; }
+    .donut-chart { position: relative; width: 180px; height: 180px; max-width: 100%; }
+    .donut-chart svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .donut-chart circle {
+      fill: none; stroke-width: 28;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .chart-center {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+    }
+    .chart-center .pct { font-size: 1.6rem; font-weight: 800; }
+    .chart-center .pct-label { font-size: 0.65rem; color: var(--text-muted); }
+
+    /* AD ZONE */
+    .ad-zone {
+      max-width: 1200px; margin: 20px auto; padding: 0 24px;
+    }
+    .ad-placeholder {
+      background: var(--bg-card); border: 1px dashed var(--border);
+      border-radius: 12px; padding: 20px; text-align: center;
+      color: var(--text-muted); font-size: 0.75rem;
+    }
+
+    /* FOOTER */
+    footer {
+      max-width: 1200px; margin: 40px auto 0;
+      padding: 30px 24px; border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.8; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* TOOLTIPS */
+    .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(255,255,255,0.1); border-radius: 50%; font-size: 0.65rem; color: var(--text-muted); margin-left: 6px; cursor: help; }
+    .tooltip:hover { background: var(--accent); color: white; }
+    .tooltip::after {
+      content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: var(--text-primary); color: var(--bg-primary); padding: 8px 12px; border-radius: 6px; font-size: 0.75rem;
+      opacity: 0; pointer-events: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100;
+      white-space: normal; width: max-content; max-width: 220px; text-align: center; line-height: 1.4; font-weight: 500;
+    }
+    .tooltip:hover::after { opacity: 1; bottom: 150%; }
+
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; color: black; }
+      header, .hero, .period-toggle, .form-group, .checkbox-row, .ad-zone, .seo-section, footer, .mortgage-cta, button { display: none !important; }
+      .main-grid { display: block; }
+      .card { border: none; box-shadow: none; background: transparent; padding: 0; }
+      .card-title { color: black; }
+      .breakdown-item { border-bottom: 1px solid #ccc; }
+      .breakdown-label, .breakdown-value { color: black !important; }
+    }
+
+    /* SEO CONTENT */
+    .seo-section {
+      max-width: 1200px; margin: 0 auto; padding: 40px 24px;
+    }
+    .seo-section h2 {
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;
+    }
+    .seo-section p, .seo-section li {
+      color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;
+    }
+    .seo-section ul { padding-left: 20px; margin: 12px 0; }
+    .tax-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .tax-table th, .tax-table td {
+      padding: 10px 16px; text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .tax-table th { color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
+    .tax-table td { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">NZ<span>Salary</span>Calc</div>
+    <div class="header-badge">2025–2026 Tax Year</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero">
+    <!-- Ad Zone: Top Leaderboard (Responsive) -->
+    <div style="width: 100%; min-height: 90px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: rgba(255,255,255,0.2); border-radius: 8px;">ADVERTISEMENT - LEADERBOARD</div>
+    
+    <h1>NZ Salary Calculator <span style="background: var(--accent-grad); -webkit-background-clip: text; -webkit-fill-color: transparent;">2025 - 2026</span></h1>
+    <p>Free, instant NZ salary calculator with real-time PAYE tax, ACC earner's levy, KiwiSaver contributions & student loan deductions. Updated for the 2025–2026 tax year.</p>
+  </div>
+</section>
+
+<!-- AD ZONE 1 -->
+<div class="ad-zone"><div class="ad-placeholder">— Ad Placement Zone (Leaderboard 728x90) —</div></div>
+
+<div class="main-grid">
+
+  <!-- INPUT CARD -->
+  <div class="card">
+    <div class="card-title">💼 Your Income</div>
+
+    <div class="period-toggle" id="periodToggle">
+      <button class="period-btn" data-period="weekly">Weekly</button>
+      <button class="period-btn" data-period="fortnightly">Fortnightly</button>
+      <button class="period-btn" data-period="monthly">Monthly</button>
+      <button class="period-btn active" data-period="annual">Annual</button>
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Gross Salary / Wages ($)</label>
+      <input type="number" id="salary" placeholder="e.g. 75000" value="75000">
+    </div>
+
+    <div class="form-group">
+      <label for="kiwisaver">KiwiSaver Contribution Rate <span class="tooltip" data-tooltip="Optional retirement scheme. 3% is the default. Employers legally must match up to 3%.">?</span></label>
+      <select id="kiwisaver">
+        <option value="0">Not enrolled</option>
+        <option value="3" selected>3% (Minimum)</option>
+        <option value="4">4%</option>
+        <option value="6">6%</option>
+        <option value="8">8%</option>
+        <option value="10">10%</option>
+      </select>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="studentLoan">
+      <label for="studentLoan">I have a Student Loan</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="secondaryIncome">
+      <label for="secondaryIncome">This is secondary income (S tax code) <span class="tooltip" data-tooltip="Check this if this is a 2nd job. Ensures you are taxed correctly under the Income Tax Act without underpaying.">?</span></label>
+    </div>
+
+    <div class="form-group" style="margin-top: 18px;">
+      <label for="payFrequency">Results Display</label>
+      <select id="payFrequency">
+        <option value="annual">Annual Summary</option>
+        <option value="monthly">Monthly Summary</option>
+        <option value="fortnightly">Fortnightly Summary</option>
+        <option value="weekly">Weekly Summary</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- RESULTS CARD -->
+  <div class="card" id="resultsCard">
+    <div class="card-title">📊 Your Take-Home Pay</div>
+
+
+
+    <div class="card result-card">
+      <div class="label">You Take Home</div>
+      <div class="amount" id="takeHome">$0</div>
+      <div class="sub" id="takeHomeSub">per year after deductions</div>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-container">
+      <div class="donut-chart">
+        <svg viewBox="0 0 100 100">
+          <circle id="circBg" cx="50" cy="50" r="36" stroke="rgba(255,255,255,0.05)" stroke-dasharray="226.19" stroke-dashoffset="0"/>
+          <circle id="circTax" cx="50" cy="50" r="36" stroke="var(--red)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
+          <circle id="circAcc" cx="50" cy="50" r="36" stroke="var(--orange)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
+          <circle id="circKiwi" cx="50" cy="50" r="36" stroke="var(--blue)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
+          <circle id="circLoan" cx="50" cy="50" r="36" stroke="var(--pink)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
+          <circle id="circNet" cx="50" cy="50" r="36" stroke="var(--green)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
+        </svg>
+        <div class="chart-center">
+          <div class="pct" id="netPct">0%</div>
+          <div class="pct-label">Take Home</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREAKDOWN -->
+    <div id="breakdown"></div>
+    
+    <div style="margin-top: 32px; text-align: center;">
+      <button onclick="window.print()" style="background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 0.85rem;"><span style="margin-right: 8px;">🖨️</span> Print Summary for Bank</button>
+    </div>
+    
+    <!-- Ad Zone: Mid-Content Rectangle (High CTR) - MOVED HERE -->
+    <div style="width: 100%; min-height: 250px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); margin-top: 32px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: rgba(255,255,255,0.2); border-radius: 12px;">ADVERTISEMENT - MID CONTENT</div>
+  </div>
+</div>
+
+<!-- AD ZONE 2 -->
+<div class="ad-zone"><div class="ad-placeholder">— Ad Placement Zone (In-Content 300x250) —</div></div>
+
+<!-- MORTGAGE CTA -->
+<div class="mortgage-cta" style="max-width: 1200px; margin: 0 auto 40px; padding: 0 24px;">
+  <div style="background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,184,148,0.08)); border: 1px solid rgba(108,92,231,0.2); border-radius: 16px; padding: 36px; text-align: center;">
+    <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; color: var(--text-primary); letter-spacing: -0.5px;">Looking to buy a home? 🏠</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.05rem;">Now that you know your take-home pay, see how much house you can afford.</p>
+    <a href="../mortgage/index.html" style="display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; transition: background 0.2s; box-shadow: 0 4px 12px rgba(108,92,231,0.3);">Try the NZ Mortgage Calculator &rarr;</a>
+  </div>
+</div>
+
+<!-- EDUCATIONAL & SEO SECTION -->
+<section class="seo-section" style="background: rgba(255,255,255,0.02); border-radius: 20px; padding: 40px; border: 1px solid var(--border); margin-bottom: 40px;">
+  <h2 style="color: var(--accent); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 6px; margin-bottom: 30px; letter-spacing: -1px;">🎓 How to Calculate Your NZ Salary (Manual)</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
+    
+    <div>
+      <h3 style="color: var(--text-primary); margin-bottom: 14px; font-size: 1.15rem; font-weight: 700;">1. The "Slice" System (PAYE Tax)</h3>
+      <p style="margin-bottom: 16px;">Governed by the <strong>Income Tax Act 2007</strong>, New Zealand uses a Progressive Tax System. This means your income is taxed in "slices" rather than a flat rate. As you earn more, only the money in the higher bracket is taxed at the higher rate.</p>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 8px;">• Your first <strong>$15,600</strong> is taxed at <strong>10.5%</strong>.</li>
+        <li style="margin-bottom: 8px;">• Income between <strong>$15,601 and $53,500</strong> is taxed at <strong>17.5%</strong>.</li>
+        <li style="margin-bottom: 8px;">• Only the money <em>above</em> <strong>$180,000</strong> is taxed at the highest <strong>39%</strong> rate.</li>
+      </ul>
+      <p style="font-size: 0.8rem; margin-top: 10px;"><a href="https://www.legislation.govt.nz/act/public/2007/0097/latest/DLM1512301.html" target="_blank" style="color: var(--blue);">View Income Tax Act 2007 &rarr;</a></p>
+    </div>
+
+    <div>
+      <h3 style="color: var(--text-primary); margin-bottom: 14px; font-size: 1.15rem; font-weight: 700;">2. ACC Earner's Levy (1.75%)</h3>
+      <p style="margin-bottom: 16px;">Under the <strong>Accident Compensation Act 2001</strong>, the ACC Levy is your mandatory no-fault injury insurance. In NZ, every worker contributes $1.75 for every $100 earned (up to a maximum threshold of $152,790). This ensures that if you are injured anywhere—at work, home, or play—ACC covers your medical costs and provides up to 80% of your income while you recover.</p>
+      <p style="font-size: 0.8rem; margin-top: 10px;"><a href="https://www.acc.co.nz/about-us/how-we-are-funded/" target="_blank" style="color: var(--blue);">Learn how ACC is funded &rarr;</a></p>
+    </div>
+
+    <div>
+      <h3 style="color: var(--text-primary); margin-bottom: 14px; font-size: 1.15rem; font-weight: 700;">3. Student Loan & KiwiSaver</h3>
+      <p style="margin-bottom: 16px;"><strong>Student Loans:</strong> Governed by the Student Loan Scheme Act, you only start paying back your loan once your income exceeds the Repayment Threshold of $22,828. For every dollar earned <em>over</em> that, 12 cents is deducted.</p>
+      <p style="margin-bottom: 16px;"><strong>KiwiSaver:</strong> Governed by the KiwiSaver Act 2006, your chosen percentage is deducted from your <em>gross</em> pay to save for your retirement or first home.</p>
+      <p style="font-size: 0.8rem; margin-top: 10px;"><a href="https://www.ird.govt.nz/kiwisaver" target="_blank" style="color: var(--blue);">View official KiwiSaver rules &rarr;</a></p>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 60px;">
+    <h2 style="margin-bottom: 20px;">NZ PAYE Tax Table 2025–2026</h2>
+    <table class="tax-table">
+      <thead><tr><th>Annual Income Slice</th><th>Tax Rate</th></tr></thead>
+      <tbody>
+        <tr><td>$0 – $15,600</td><td>10.5%</td></tr>
+        <tr><td>$15,601 – $53,500</td><td>17.5%</td></tr>
+        <tr><td>$53,501 – $78,100</td><td>30%</td></tr>
+        <tr><td>$78,101 – $180,000</td><td>33%</td></tr>
+        <tr><td>$180,001 and over</td><td>39%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>NZSalaryCalc.co.nz — Free NZ Salary & PAYE Calculator for 2025–2026.<br>
+  <a href="about.html">About Us</a> | <a href="privacy.html">Privacy Policy</a> | <a href="https://www.ird.govt.nz" target="_blank">ird.govt.nz</a><br>
+  &copy; 2026 NZSalaryCalc. All rights reserved.</p>
+</footer>
+
+<script>
+// ====== NZ TAX ENGINE 2025-2026 ======
+const TAX_BRACKETS = [
+  { min: 0,      max: 15600,   rate: 0.105 },
+  { min: 15600,  max: 53500,   rate: 0.175 },
+  { min: 53500,  max: 78100,   rate: 0.30  },
+  { min: 78100,  max: 180000,  rate: 0.33  },
+  { min: 180000, max: Infinity, rate: 0.39  },
+];
+const ACC_RATE = 0.0175; // Updated for 2025-2026 Standard
+const ACC_MAX_EARNINGS = 152790;
+const STUDENT_LOAN_RATE = 0.12;
+const STUDENT_LOAN_THRESHOLD = 22828;
+
+function calcPAYE(annual) {
+  let tax = 0;
+  for (const b of TAX_BRACKETS) {
+    if (annual <= b.min) break;
+    const taxable = Math.min(annual, b.max) - b.min;
+    tax += taxable * b.rate;
+  }
+  return tax;
+}
+
+function calcACC(annual) {
+  return Math.min(annual, ACC_MAX_EARNINGS) * ACC_RATE;
+}
+
+function calcKiwiSaver(annual, rate) {
+  return annual * (rate / 100);
+}
+
+function calcStudentLoan(annual) {
+  return annual > STUDENT_LOAN_THRESHOLD
+    ? (annual - STUDENT_LOAN_THRESHOLD) * STUDENT_LOAN_RATE
+    : 0;
+}
+
+function formatMoney(n) {
+  return '$' + n.toLocaleString('en-NZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ====== INPUT PERIOD CONVERSION ======
+let inputPeriod = 'annual';
+const periodMultipliers = { weekly: 52, fortnightly: 26, monthly: 12, annual: 1 };
+
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const salaryInput = document.getElementById('salary');
+    const oldVal = parseFloat(salaryInput.value) || 0;
+    const oldPeriod = inputPeriod;
+    
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    inputPeriod = btn.dataset.period;
+    
+    // SMART CONVERSION: Adjust the input value so the core annual salary stays the same
+    if (oldVal > 0) {
+      const annualBase = oldVal * periodMultipliers[oldPeriod];
+      salaryInput.value = (annualBase / periodMultipliers[inputPeriod]).toFixed(2);
+    }
+    
+    calculate();
+  });
+});
+
+// ====== MAIN CALCULATE ======
+function calculate() {
+  const rawSalary = parseFloat(document.getElementById('salary').value) || 0;
+  const annualGross = rawSalary * periodMultipliers[inputPeriod];
+  const ksRate = parseFloat(document.getElementById('kiwisaver').value);
+  const hasLoan = document.getElementById('studentLoan').checked;
+  const displayPeriod = document.getElementById('payFrequency').value;
+  const divisor = periodMultipliers[displayPeriod];
+
+  const paye = calcPAYE(annualGross);
+  const acc = calcACC(annualGross);
+  const kiwisaver = calcKiwiSaver(annualGross, ksRate);
+  const studentLoan = hasLoan ? calcStudentLoan(annualGross) : 0;
+  const totalDeductions = paye + acc + kiwisaver + studentLoan;
+  const net = annualGross - totalDeductions;
+
+  // Display
+  const periodLabels = { annual: 'per year', monthly: 'per month', fortnightly: 'per fortnight', weekly: 'per week' };
+  document.getElementById('takeHome').textContent = formatMoney(net / divisor);
+  document.getElementById('takeHomeSub').textContent = periodLabels[displayPeriod] + ' after deductions';
+
+  // Chart
+  const circ = 226.19;
+  const total = annualGross || 1;
+  const slices = [
+    { id: 'circTax',  val: paye,        color: 'var(--red)' },
+    { id: 'circAcc',  val: acc,         color: 'var(--orange)' },
+    { id: 'circKiwi', val: kiwisaver,   color: 'var(--blue)' },
+    { id: 'circLoan', val: studentLoan, color: 'var(--pink)' },
+    { id: 'circNet',  val: net,         color: 'var(--green)' },
+  ];
+  let offset = 0;
+  slices.forEach(s => {
+    const el = document.getElementById(s.id);
+    const pct = s.val / total;
+    const len = pct * circ;
+    el.setAttribute('stroke-dasharray', `${len} ${circ - len}`);
+    el.setAttribute('stroke-dashoffset', `${-offset}`);
+    offset += len;
+  });
+  document.getElementById('netPct').textContent = Math.round((net / total) * 100) + '%';
+
+  // Breakdown
+  const items = [
+    { label: 'Gross Income',    value: annualGross / divisor, color: 'var(--text-primary)', bold: true },
+    { label: 'PAYE Tax',        value: -(paye / divisor),     color: 'var(--red)' },
+    { label: 'ACC Levy',        value: -(acc / divisor),      color: 'var(--orange)' },
+    { label: 'KiwiSaver (' + ksRate + '%)', value: -(kiwisaver / divisor), color: 'var(--blue)' },
+  ];
+  if (hasLoan) items.push({ label: 'Student Loan', value: -(studentLoan / divisor), color: 'var(--pink)' });
+  items.push({ label: 'Take-Home Pay', value: net / divisor, color: 'var(--green)', bold: true });
+
+  const bd = document.getElementById('breakdown');
+  bd.innerHTML = items.map(i => `
+    <div class="breakdown-item">
+      <div class="breakdown-left">
+        <div class="breakdown-dot" style="background:${i.color}"></div>
+        <div class="breakdown-label" style="${i.bold ? 'font-weight:700;color:var(--text-primary)' : ''}">${i.label}</div>
+      </div>
+      <div class="breakdown-value" style="color:${i.color};${i.bold ? 'font-weight:800' : ''}">${i.value < 0 ? '−' : ''}${formatMoney(Math.abs(i.value))}</div>
+    </div>
+  `).join('');
+}
+
+// ====== EVENT LISTENERS ======
+document.getElementById('salary').addEventListener('input', calculate);
+document.getElementById('kiwisaver').addEventListener('change', calculate);
+document.getElementById('studentLoan').addEventListener('change', calculate);
+document.getElementById('secondaryIncome').addEventListener('change', calculate);
+document.getElementById('payFrequency').addEventListener('change', calculate);
+
+// Initial calculation
+calculate();
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance Hourly Rate Calculator | Calculate Your True Value</title>
+  <meta name="description" content="Calculate the exact hourly, daily, and project rates you need to charge as a freelancer to hit your target salary after expenses and unbillable time.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google AdSense Placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --border: #eaecf0;
+      --text-main: #101828;
+      --text-muted: #667085;
+      --primary: #4f46e5; /* Indigo */
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --accent-green: #10b981;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; font-size: 1.25rem; color: var(--text-main); letter-spacing: -0.5px; }
+    .logo span { color: var(--primary); }
+
+    /* HERO */
+    .hero { text-align: center; padding: 60px 0 40px; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+    @media (max-width: 850px) { .app-layout { grid-template-columns: 1fr; } }
+
+    /* CARDS & INPUTS */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+    .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+    .section-title span { background: var(--primary-light); color: var(--primary); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    
+    .input-group { margin-bottom: 24px; }
+    .input-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-main); }
+    .input-help { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+    
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+    .input-wrapper span.prefix { position: absolute; left: 16px; color: var(--text-muted); font-weight: 500; }
+    .input-wrapper span.suffix { position: absolute; right: 16px; color: var(--text-muted); font-size: 0.85rem; }
+    .input-wrapper input {
+      width: 100%; padding: 14px 16px;
+      border: 1px solid var(--border); border-radius: 10px;
+      font-family: inherit; font-size: 1rem; font-weight: 500; color: var(--text-main);
+      transition: all 0.2s;
+    }
+    .input-wrapper.has-prefix input { padding-left: 36px; }
+    .input-wrapper.has-suffix input { padding-right: 60px; }
+    .input-wrapper input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+
+    /* SLIDERS */
+    .slider-container { margin-bottom: 16px; }
+    .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .slider-value { font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; }
+    input[type=range] {
+      -webkit-appearance: none; width: 100%; background: transparent; height: 6px; border-radius: 4px; outline: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: var(--border); border-radius: 4px; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: var(--primary); cursor: pointer; margin-top: -7px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: transform 0.1s; }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+
+    /* RESULTS STICKY CARD */
+    .results-card { position: sticky; top: 100px; background: var(--text-main); color: #fff; border: none; overflow: hidden; }
+    .results-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--primary), var(--accent-green)); }
+    .result-hero { text-align: center; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .result-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); margin-bottom: 8px; font-weight: 600; }
+    .result-main-val { font-size: 4.5rem; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin: 8px 0; }
+    .result-main-val span { font-size: 1.5rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0; }
+    
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .result-item { background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; }
+    .result-item-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .result-item-val { font-size: 1.8rem; font-weight: 800; }
+
+    .summary-text { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; text-align: center; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; }
+
+    /* AD ZONES */
+    .ad-banner { margin: 40px auto; max-width: 900px; min-height: 90px; background: var(--card); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; }
+    .ad-rect { width: 100%; min-height: 250px; background: var(--card); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; margin-top: 32px; }
+
+    /* TOOLTIPS */
+    .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(0,0,0,0.06); border-radius: 50%; font-size: 0.65rem; color: var(--text-muted); margin-left: 6px; cursor: help; }
+    .tooltip:hover { background: var(--primary); color: white; }
+    .tooltip::after {
+      content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: var(--text-main); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.75rem;
+      opacity: 0; pointer-events: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100;
+      white-space: normal; width: max-content; max-width: 220px; text-align: center; line-height: 1.4; font-weight: 500;
+    }
+    .tooltip:hover::after { opacity: 1; bottom: 150%; }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="logo">Rate<span>Calc</span></div>
+    <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Gig Economy Toolkit</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <h1>Stop undercharging.</h1>
+    <p>Calculate your true freelance hourly rate by factoring in unbillable hours, vacation time, and business expenses.</p>
+  </div>
+
+  <div class="ad-banner">ADVERTISEMENT (728x90 LEADERBOARD)</div>
+
+  <div class="app-layout">
+    
+    <!-- LEFT: CALCULATOR INPUTS -->
+    <div class="inputs-section">
+      
+      <div class="card" style="margin-bottom: 24px;">
+        <h2 class="section-title"><span>1</span> Income Goals & Expenses</h2>
+        
+        <div class="input-group">
+          <label>Target Annual Net Income <span class="tooltip" data-tooltip="This is your desired 'Take Home' pay after business expenses but before income tax.">?</span></label>
+          <span class="input-help">How much do you want to take home before income tax, but after business expenses?</span>
+          <div class="input-wrapper has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="targetSalary" value="80000" oninput="calculate()">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Annual Business Expenses <span class="tooltip" data-tooltip="The IRD allows you to deduct expenses like laptops, internet, and home-office costs from your taxable income.">?</span></label>
+          <span class="input-help">Software, equipment, insurance, marketing, accounting, coworking space, etc.</span>
+          <div class="input-wrapper has-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="expenses" value="12000" oninput="calculate()">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title"><span>2</span> Time & Availability</h2>
+        
+        <div class="input-group">
+          <div class="slider-header">
+            <label style="margin:0;">Time Off (Vacation, Sick, Holidays)</label>
+            <div class="slider-value"><span id="weeksOffVal">4</span> Weeks</div>
+          </div>
+          <span class="input-help">How many weeks do you plan to NOT work this year?</span>
+          <div class="slider-container">
+            <input type="range" id="weeksOff" min="0" max="12" value="4" oninput="updateSlider('weeksOff'); calculate()">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="slider-header">
+            <label style="margin:0;">Total Working Hours per Week</label>
+            <div class="slider-value"><span id="hoursPerWeekVal">40</span> Hours</div>
+          </div>
+          <span class="input-help">How many total hours will you sit at your desk per week?</span>
+          <div class="slider-container">
+            <input type="range" id="hoursPerWeek" min="10" max="80" value="40" oninput="updateSlider('hoursPerWeek'); calculate()">
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+          <div class="slider-header">
+            <label style="margin:0;">Billable Efficiency <span class="tooltip" data-tooltip="Crucial metric: The percentage of your 40-hour week actually spent doing paid client work.">?</span></label>
+            <div class="slider-value"><span id="efficiencyVal">60</span>%</div>
+          </div>
+          <span class="input-help">Percentage of your time actually doing paid client work (vs admin, emails, pitching). <em>Average is 50-60%.</em></span>
+          <div class="slider-container">
+            <input type="range" id="efficiency" min="10" max="100" value="60" oninput="updateSlider('efficiency'); calculate()">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div class="results-section">
+      <div class="card results-card">
+        <div class="result-hero">
+          <div class="result-label">Minimum Hourly Rate</div>
+          <div class="result-main-val" id="hourlyRate">$0<span>/hr</span></div>
+          <div style="font-size: 0.85rem; color: var(--accent-green); font-weight: 600; margin-top: 8px;">Break-even to hit target</div>
+        </div>
+        
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="result-item-label">Daily Rate (8 hrs)</div>
+            <div class="result-item-val" id="dailyRate">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="result-item-label">Weekly Rate</div>
+            <div class="result-item-val" id="weeklyRate">$0</div>
+          </div>
+        </div>
+
+        <div class="summary-text">
+          Based on your inputs, you have <strong><span id="totalBillableHours">0</span> billable hours</strong> this year. You must charge this rate to cover your <strong>$<span id="totalGrossRequired">0</span></strong> gross revenue target.
+        </div>
+      </div>
+
+
+  </div>
+
+  <div class="ad-banner" style="margin-top: 0; margin-bottom: 60px; width: 100%;">ADVERTISEMENT - IN CONTENT (728x90)</div>
+
+  <!-- EDUCATIONAL & SEO SECTION -->
+  <section style="background: var(--card); border-radius: 16px; padding: 40px; border: 1px solid var(--border); margin-bottom: 60px;">
+    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; color: var(--text-main); border-bottom: 2px solid var(--primary-light); padding-bottom: 12px; display: inline-block;">📚 Freelance Pricing Guide & Manual</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+      
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--primary);">1. The "Billable Efficiency" Trap</h3>
+        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">The #1 mistake new freelancers make is assuming they can bill for 40 hours a week. In reality, you spend massive amounts of time on admin, pitching, accounting, and answering emails. The global average for freelance billable efficiency is only <strong>50% to 60%</strong>. If you don't account for this, you will effectively earn half of your target salary.</p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--primary);">2. Tax & Compliance (GST & Income Tax)</h3>
+        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">As a sole trader, you are governed by the <strong>Income Tax Act 2007</strong>. This means you must manually pay your own income tax and ACC levies. Furthermore, under the <strong>Goods and Services Tax Act 1985</strong>, if you earn over $60,000 in a 12-month period, you are legally required to register for and charge GST (15%). Always keep 30-40% of your earnings in a separate bank account for tax time.</p>
+        <p style="font-size: 0.85rem;"><a href="https://www.ird.govt.nz/roles/contractors" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: none;">View IRD's Contractor Hub &rarr;</a></p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--primary);">3. Daily Rates vs. Hourly Rates</h3>
+        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">Charging by the hour can penalize you for working fast. Many professionals shift to a "Day Rate" or "Project Rate". If a client books you for a day, they are buying your availability, even if the task takes 5 hours. Use the <strong>Daily Rate (8 hrs)</strong> calculation above as a baseline when quoting flat-fee projects.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+  function updateSlider(id) {
+    document.getElementById(id + 'Val').innerText = document.getElementById(id).value;
+  }
+
+  function calculate() {
+    const targetSalary = parseFloat(document.getElementById('targetSalary').value) || 0;
+    const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+    const weeksOff = parseInt(document.getElementById('weeksOff').value) || 0;
+    const hoursPerWeek = parseInt(document.getElementById('hoursPerWeek').value) || 0;
+    const efficiency = parseInt(document.getElementById('efficiency').value) || 0;
+
+    // Gross Revenue Required = Target Salary + Business Expenses
+    const grossRequired = targetSalary + expenses;
+
+    // Working Weeks
+    const workingWeeks = 52 - weeksOff;
+
+    // Billable Hours Per Week
+    const billableHoursPerWeek = hoursPerWeek * (efficiency / 100);
+
+    // Total Billable Hours Per Year
+    const totalBillableHours = workingWeeks * billableHoursPerWeek;
+
+    let hourlyRate = 0;
+    if (totalBillableHours > 0) {
+      hourlyRate = grossRequired / totalBillableHours;
+    }
+
+    const dailyRate = hourlyRate * (8 * (efficiency/100)); // Standard 8 hr day * efficiency
+    const trueDailyRate = hourlyRate * 8; // If they sell a "day rate" it covers 8 hours of work
+
+    // Update UI
+    document.getElementById('hourlyRate').innerHTML = '$' + Math.ceil(hourlyRate).toLocaleString() + '<span>/hr</span>';
+    document.getElementById('dailyRate').innerText = '$' + Math.ceil(trueDailyRate).toLocaleString();
+    document.getElementById('weeklyRate').innerText = '$' + Math.ceil(hourlyRate * hoursPerWeek).toLocaleString();
+    
+    document.getElementById('totalBillableHours').innerText = Math.round(totalBillableHours).toLocaleString();
+    document.getElementById('totalGrossRequired').innerText = Math.round(grossRequired).toLocaleString();
+  }
+
+  // Init
+  calculate();
+</script>
+
+</body>
+</html>

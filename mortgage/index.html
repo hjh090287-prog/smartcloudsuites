@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NZ Mortgage & Repayment Calculator | Independent Property Tools</title>
+  <meta name="description" content="Calculate your mortgage repayments, rental yield, and house affordability. Includes extra repayments logic and full amortization schedule.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google AdSense - Global Deployment Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --primary: #0ea5e9;
+      --primary-hover: #0284c7;
+      --primary-light: #e0f2fe;
+      --text: #0f172a;
+      --text-light: #64748b;
+      --green: #10b981;
+      --red: #ef4444;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex; flex-direction: column; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* HEADER */
+    header { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .logo span { color: var(--primary); }
+    .nav { display: flex; gap: 20px; font-size: 0.85rem; font-weight: 600; }
+    .nav a { color: var(--text-light); text-decoration: none; }
+
+    /* HERO */
+    .hero { padding: 60px 0 40px; text-align: center; }
+    .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; color: var(--text); }
+    .hero p { color: var(--text-light); font-size: 1.15rem; max-width: 600px; margin: 0 auto; }
+
+    /* CALCULATOR GRID */
+    .calc-grid { display: grid; grid-template-columns: 350px 1fr; gap: 32px; margin-bottom: 60px; align-items: start; }
+    @media(max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+    
+    .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; color: var(--text); display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+    .input-wrapper span.prefix { position: absolute; left: 16px; color: var(--text-light); font-weight: 600; }
+    .input-wrapper span.suffix { position: absolute; right: 16px; color: var(--text-light); font-weight: 600; font-size: 0.85rem; }
+    .input-wrapper input, .input-wrapper select { 
+      width: 100%; padding: 12px 16px; 
+      border: 1px solid var(--border); border-radius: 10px;
+      font-size: 1rem; font-family: inherit; font-weight: 600; color: var(--text);
+      transition: all 0.2s; background: #fff;
+      appearance: none;
+    }
+    .input-wrapper.has-prefix input { padding-left: 36px; }
+    .input-wrapper.has-suffix input { padding-right: 40px; }
+    .input-wrapper input:focus, .input-wrapper select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15); }
+
+    /* RESULTS */
+    .results-panel { display: flex; flex-direction: column; gap: 24px; }
+    
+    .hero-result { background: var(--text); color: white; border-radius: 16px; padding: 40px; text-align: center; position: relative; overflow: hidden; }
+    .hero-result::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--primary), #38bdf8); }
+    .result-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+    .result-value { font-size: 5rem; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin: 12px 0 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .result-sub { font-size: 1rem; color: rgba(255,255,255,0.6); }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media(max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+    .stat-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .stat-val { font-size: 1.8rem; font-weight: 900; color: var(--text); letter-spacing: -0.5px; }
+
+    /* AMORTIZATION TABLE */
+    .table-container { margin-top: 40px; background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .table-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .table-header h3 { font-size: 1.1rem; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; text-align: right; }
+    th, td { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    th { text-align: right; background: #f8fafc; color: var(--text-light); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    th:first-child, td:first-child { text-align: left; }
+    tr:last-child td { border-bottom: none; }
+    td { font-weight: 500; font-variant-numeric: tabular-nums; }
+    .col-interest { color: var(--red); }
+    .col-principal { color: var(--green); }
+
+    /* AD ZONES */
+    .ad-banner { margin: 40px auto; max-width: 900px; min-height: 90px; background: #fff; border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 0.8rem; border-radius: 12px; }
+
+    /* TOGGLE */
+    .repayment-freq { display: flex; background: #f1f5f9; padding: 4px; border-radius: 8px; margin-bottom: 24px; }
+    .freq-btn { flex: 1; padding: 8px; text-align: center; font-size: 0.85rem; font-weight: 600; color: var(--text-light); cursor: pointer; border-radius: 6px; transition: 0.2s; border: none; background: transparent; }
+    .freq-btn.active { background: #fff; color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+    /* TOOLTIPS */
+    .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(0,0,0,0.06); border-radius: 50%; font-size: 0.65rem; color: var(--text-light); margin-left: 6px; cursor: help; }
+    .tooltip:hover { background: var(--primary); color: white; }
+    .tooltip::after {
+      content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: var(--text); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.75rem;
+      opacity: 0; pointer-events: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100;
+      white-space: normal; width: max-content; max-width: 220px; text-align: center; line-height: 1.4; font-weight: 500;
+    }
+    .tooltip:hover::after { opacity: 1; bottom: 150%; }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="logo">Property<span>Calc</span></div>
+    <div class="nav">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</header>
+
+
+<main class="container">
+  <div class="hero">
+    <h1>NZ Mortgage Calculator</h1>
+    <p>Calculate your repayments, see the impact of extra payments, and view your full amortization schedule.</p>
+  </div>
+
+  <div class="calc-grid">
+    
+    <!-- LEFT: INPUTS -->
+    <div class="card inputs-panel">
+      <h2 class="section-title">Loan Details</h2>
+      
+      <div class="form-group">
+        <label>Property Value</label>
+        <div class="input-wrapper has-prefix">
+          <span class="prefix">$</span>
+          <input type="number" id="price" value="850000" oninput="calculate()">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Deposit Amount <span class="tooltip" data-tooltip="Most NZ banks require a 20% deposit, though First Home Buyers can sometimes secure 10% under certain schemes.">?</span></label>
+        <div class="input-wrapper has-prefix">
+          <span class="prefix">$</span>
+          <input type="number" id="deposit" value="170000" oninput="calculate()">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Interest Rate</label>
+        <div class="input-wrapper has-suffix">
+          <input type="number" step="0.01" id="rate" value="6.45" oninput="calculate()">
+          <span class="suffix">%</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Loan Term</label>
+        <div class="input-wrapper has-suffix">
+          <input type="number" id="term" value="30" oninput="calculate()">
+          <span class="suffix">Yrs</span>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top: 32px;">Extra Repayments <span class="tooltip" data-tooltip="Any amount paid over the minimum directly reduces your principal loan balance, bypassing interest.">?</span></h2>
+      
+      <div class="form-group">
+        <label>Extra Regular Payment</label>
+        <div class="input-wrapper has-prefix">
+          <span class="prefix">$</span>
+          <input type="number" id="extra" value="0" oninput="calculate()">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-wrapper">
+          <select id="extraFreq" onchange="calculate()">
+            <option value="12">Per Month</option>
+            <option value="26">Per Fortnight</option>
+            <option value="52">Per Week</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div class="results-panel">
+      
+      <div class="hero-result">
+        <div class="repayment-freq" id="freqToggle">
+          <button class="freq-btn active" data-freq="12">Monthly</button>
+          <button class="freq-btn" data-freq="26">Fortnightly</button>
+          <button class="freq-btn" data-freq="52">Weekly</button>
+        </div>
+        
+        <div class="result-label">Your Repayment</div>
+        <div class="result-value" id="mainRepayment">$0</div>
+        <div class="result-sub" id="mainRepaymentSub">per month</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Loan Amount</div>
+          <div class="stat-val" id="totalLoan">$0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Interest Paid</div>
+          <div class="stat-val" id="totalInterest" style="color: var(--red);">$0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Time Saved</div>
+          <div class="stat-val" id="timeSaved" style="color: var(--green);">0 Yrs</div>
+        </div>
+      </div>
+
+      <!-- AMORTIZATION TABLE -->
+      <div class="table-container">
+        <div class="table-header">
+          <h3>Amortization Schedule (Yearly)</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Interest Paid</th>
+              <th>Principal Paid</th>
+              <th>Remaining Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortBody">
+            <!-- JS generates this -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- AD ZONE MOVED UNDER RESULTS -->
+      <div class="ad-banner" style="margin: 40px 0 0; width: 100%;">ADVERTISEMENT - IN CONTENT (728x90)</div>
+
+    </div>
+
+  </div>
+
+  <!-- SALARY CTA -->
+  <div style="max-width: 1200px; margin: 0 auto 40px; padding: 0 24px;">
+    <div style="background: var(--primary-light); border: 1px solid var(--primary); border-radius: 16px; padding: 36px; text-align: center;">
+      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; color: var(--text); letter-spacing: -0.5px;">Calculate your Take-Home Pay 💰</h3>
+      <p style="color: var(--text-light); margin-bottom: 24px; font-size: 1.05rem;">See exactly how much hits your bank account after PAYE tax and KiwiSaver.</p>
+      <a href="../salary/index.html" style="display: inline-block; background: var(--text); color: white; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; transition: background 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">Try the NZ Salary Calculator &rarr;</a>
+    </div>
+  </div>
+
+  <!-- EDUCATIONAL & SEO SECTION -->
+  <section style="background: #fff; border-radius: 16px; padding: 40px; border: 1px solid var(--border); margin-bottom: 60px;">
+    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; color: var(--text); border-bottom: 2px solid var(--primary-light); padding-bottom: 12px; display: inline-block;">📚 How to Use This Mortgage Calculator (Manual)</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+      
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;">1. Responsible Lending (CCCFA)</h3>
+        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 16px;">Under the <strong>Credit Contracts and Consumer Finance Act 2003 (CCCFA)</strong>, NZ banks must act as responsible lenders. This means they will heavily scrutinize your income and expenses to ensure this monthly repayment does not put you in "substantial hardship."</p>
+        <p style="font-size: 0.85rem;"><a href="https://www.consumerprotection.govt.nz/help-product-service/borrowing-money/credit-contracts-and-consumer-finance-act" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: none;">View CCCFA protections &rarr;</a></p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;">2. The Power of "Extra Repayments"</h3>
+        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 16px;">This is the most powerful feature of our calculator. In a standard table mortgage, early years are mostly interest. By adding even $50 a week, you attack the principal balance directly. This compounds over time, often shaving <strong>years</strong> off your loan term and saving you tens of thousands of dollars.</p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;">3. The Official Cash Rate (OCR)</h3>
+        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 16px;">Governed by the <strong>Reserve Bank of New Zealand Act 2021</strong>, the RBNZ sets the OCR to manage inflation. When the OCR rises, your mortgage interest rate will likely rise. Always use this calculator to stress-test your repayments at a rate 2-3% higher than current offers.</p>
+        <p style="font-size: 0.85rem;"><a href="https://www.rbnz.govt.nz/monetary-policy/official-cash-rate-decisions" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: none;">Check current OCR at RBNZ.govt.nz &rarr;</a></p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="text-align: center; color: var(--text-light); font-size: 0.85rem; padding-bottom: 40px;">
+    &copy; 2026 Property Calc NZ. All rights reserved.<br>
+    Disclaimer: This calculator is for illustrative purposes only and does not constitute financial advice.
+  </div>
+</footer>
+
+<script>
+  // UI State
+  let displayFreq = 12; // 12=Monthly, 26=Fortnightly, 52=Weekly
+
+  document.querySelectorAll('.freq-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      displayFreq = parseInt(e.target.dataset.freq);
+      
+      const freqNames = { 12: 'per month', 26: 'per fortnight', 52: 'per week' };
+      document.getElementById('mainRepaymentSub').innerText = freqNames[displayFreq];
+      
+      calculate();
+    });
+  });
+
+  function formatMoney(num) {
+    return '$' + Math.round(num).toLocaleString('en-NZ');
+  }
+
+  function calculate() {
+    const price = parseFloat(document.getElementById('price').value) || 0;
+    const deposit = parseFloat(document.getElementById('deposit').value) || 0;
+    const termYears = parseInt(document.getElementById('term').value) || 30;
+    const rateAnnual = parseFloat(document.getElementById('rate').value) || 0;
+    
+    const extraVal = parseFloat(document.getElementById('extra').value) || 0;
+    const extraFreq = parseInt(document.getElementById('extraFreq').value) || 12;
+
+    const loanAmount = price - deposit;
+    
+    // Core calculation is always done monthly for simplicity in this demo, 
+    // then adapted for display. (In a perfect banking app, it would calculate daily/fortnightly).
+    const monthlyRate = (rateAnnual / 100) / 12;
+    const totalMonths = termYears * 12;
+    
+    // Standard Monthly Payment (Base)
+    let standardMonthly = 0;
+    if (monthlyRate > 0) {
+      standardMonthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths));
+    } else {
+      standardMonthly = loanAmount / totalMonths;
+    }
+
+    // Adjust extra payment to a monthly equivalent for the amortization loop
+    const extraMonthly = extraVal * (extraFreq / 12);
+    const actualMonthlyPayment = standardMonthly + extraMonthly;
+
+    // Amortization Loop
+    let balance = loanAmount;
+    let totalInterestPaid = 0;
+    let monthsElapsed = 0;
+    
+    let yearlyData = [];
+    let currentYearInterest = 0;
+    let currentYearPrincipal = 0;
+
+    while (balance > 0 && monthsElapsed < totalMonths * 2) { // safety limit
+      monthsElapsed++;
+      
+      let interestForMonth = balance * monthlyRate;
+      let principalForMonth = actualMonthlyPayment - interestForMonth;
+
+      if (principalForMonth > balance) {
+        principalForMonth = balance;
+        interestForMonth = balance * monthlyRate;
+      }
+
+      totalInterestPaid += interestForMonth;
+      balance -= principalForMonth;
+      
+      currentYearInterest += interestForMonth;
+      currentYearPrincipal += principalForMonth;
+
+      if (monthsElapsed % 12 === 0 || balance <= 0) {
+        yearlyData.push({
+          year: Math.ceil(monthsElapsed / 12),
+          interest: currentYearInterest,
+          principal: currentYearPrincipal,
+          balance: balance < 0 ? 0 : balance
+        });
+        currentYearInterest = 0;
+        currentYearPrincipal = 0;
+      }
+    }
+
+    // Time saved calculation
+    const timeSavedMonths = totalMonths - monthsElapsed;
+    const timeSavedYears = (timeSavedMonths / 12).toFixed(1);
+
+    // Display updates
+    const displayRepayment = actualMonthlyPayment * (12 / displayFreq);
+    
+    document.getElementById('mainRepayment').innerText = formatMoney(displayRepayment);
+    document.getElementById('totalLoan').innerText = formatMoney(loanAmount);
+    document.getElementById('totalInterest').innerText = formatMoney(totalInterestPaid);
+    
+    const timeSavedEl = document.getElementById('timeSaved');
+    if (timeSavedMonths > 0) {
+      timeSavedEl.innerText = `${timeSavedYears} Yrs`;
+      timeSavedEl.style.color = 'var(--green)';
+    } else {
+      timeSavedEl.innerText = `0 Yrs`;
+      timeSavedEl.style.color = 'var(--text-light)';
+    }
+
+    // Render Table
+    const tbody = document.getElementById('amortBody');
+    tbody.innerHTML = '';
+    
+    yearlyData.forEach(data => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>Year ${data.year}</td>
+        <td class="col-interest">${formatMoney(data.interest)}</td>
+        <td class="col-principal">${formatMoney(data.principal)}</td>
+        <td>${formatMoney(data.balance)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Init
+  calculate();
+</script>
+
+</body>
+</html>
