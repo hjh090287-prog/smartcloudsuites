@@ -8,7 +8,7 @@
     <priority>1.0</priority>
   </url>
   
-  <!-- Finance Branch -->
+  <!-- Finance Suite -->
   <url>
     <loc>https://smartcloudsuites.com/finance/index.html</loc>
     <lastmod>2026-05-03</lastmod>
@@ -31,21 +31,53 @@
     <loc>https://smartcloudsuites.com/finance/salary/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smartcloudsuites.com/finance/mortgage/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://smartcloudsuites.com/finance/investment/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Developer Suite (NEW) -->
+  <url>
+    <loc>https://smartcloudsuites.com/dev/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://smartcloudsuites.com/dev/json-formatter/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smartcloudsuites.com/dev/base64/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smartcloudsuites.com/dev/string-escaper/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Fun Branch -->
+  <!-- Fun Suite -->
   <url>
     <loc>https://smartcloudsuites.com/fun/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://smartcloudsuites.com/fun/word-counter/index.html</loc>
@@ -60,12 +92,12 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Creative Branch -->
+  <!-- Creative Suite -->
   <url>
     <loc>https://smartcloudsuites.com/creative/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://smartcloudsuites.com/creative/image-compressor/index.html</loc>
@@ -79,15 +111,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://smartcloudsuites.com/finance/investment/index.html</loc>
-    <lastmod>2026-05-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
   
-  <!-- Legal -->
+  <!-- Legal & Support -->
   <url><loc>https://smartcloudsuites.com/about.html</loc><priority>0.5</priority></url>
+  <url><loc>https://smartcloudsuites.com/contact.html</loc><priority>0.5</priority></url>
   <url><loc>https://smartcloudsuites.com/terms.html</loc><priority>0.3</priority></url>
   <url><loc>https://smartcloudsuites.com/privacy.html</loc><priority>0.3</priority></url>
 </urlset>
