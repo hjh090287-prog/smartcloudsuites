@@ -10,27 +10,27 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
   <style>
     :root {
-      --bg: #f9fafb;
-      --card: #ffffff;
-      --border: #eaecf0;
-      --text-main: #101828;
-      --text-muted: #667085;
-      --primary: #4f46e5; /* Indigo */
-      --primary-hover: #4338ca;
-      --primary-light: #e0e7ff;
-      --accent-green: #10b981;
+      --bg-primary: #0a0a0f;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text-main: #f0f0f5;
+      --text-muted: rgba(240,240,245,0.45);
+      --primary: #6c5ce7;
+      --primary-hover: #5a4bcf;
+      --primary-light: rgba(108,92,231,0.2);
+      --accent-green: #00b894;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg);
+      background-color: var(--bg-primary);
       color: var(--text-main);
       line-height: 1.5;
     }
 
     /* HEADER */
     header {
-      background: var(--card);
+      background: rgba(10,10,15,0.8); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 20px 0;
       position: sticky; top: 0; z-index: 10;
@@ -42,7 +42,7 @@
 
     /* HERO */
     .hero { text-align: center; padding: 60px 0 40px; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; color: var(--text-main); }
     .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
     /* LAYOUT */
@@ -57,11 +57,11 @@
 
     /* CARDS & INPUTS */
     .card {
-      background: var(--card);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
     .section-title span { background: var(--primary-light); color: var(--primary); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
@@ -77,22 +77,22 @@
       width: 100%; padding: 14px 16px;
       border: 1px solid var(--border); border-radius: 10px;
       font-family: inherit; font-size: 1rem; font-weight: 500; color: var(--text-main);
-      transition: all 0.2s;
+      transition: all 0.2s; background: rgba(0,0,0,0.2);
     }
     .input-wrapper.has-prefix input { padding-left: 36px; }
     .input-wrapper.has-suffix input { padding-right: 60px; }
-    .input-wrapper input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+    .input-wrapper input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15); }
 
     /* SLIDERS */
     .slider-container { margin-bottom: 16px; }
     .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .slider-value { font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; }
     input[type=range] {
-      -webkit-appearance: none; width: 100%; background: transparent; height: 6px; border-radius: 4px; outline: none;
+      -webkit-appearance: none; width: 100%; background: transparent; height: 8px; border-radius: 4px; outline: none;
     }
-    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: var(--border); border-radius: 4px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: var(--primary); cursor: pointer; margin-top: -7px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: transform 0.1s; }
-    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%; background: linear-gradient(135deg, #a29bfe, #6c5ce7); cursor: pointer; margin-top: -8px; box-shadow: 0 0 15px rgba(108, 92, 231, 0.5); transition: transform 0.1s; }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
 
     /* RESULTS STICKY CARD */
     .results-card { position: sticky; top: 100px; background: linear-gradient(135deg, #111827, #1f2937); color: #fff; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border-radius: 20px; }
@@ -111,17 +111,17 @@
     .summary-text { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; text-align: center; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; }
 
     /* AD ZONES */
-    .ad-banner { margin: 40px auto; max-width: 900px; min-height: 90px; background: var(--card); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; }
-    .ad-rect { width: 100%; min-height: 250px; background: var(--card); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; margin-top: 32px; }
+    .ad-banner { margin: 40px auto; max-width: 900px; min-height: 90px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; }
+    .ad-rect { width: 100%; min-height: 250px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; margin-top: 32px; }
 
     /* TOOLTIPS */
-    .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(0,0,0,0.06); border-radius: 50%; font-size: 0.65rem; color: var(--text-muted); margin-left: 6px; cursor: help; }
+    .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(255,255,255,0.1); border-radius: 50%; font-size: 0.65rem; color: var(--text-muted); margin-left: 6px; cursor: help; }
     .tooltip:hover { background: var(--primary); color: white; }
     .tooltip::after {
       content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
-      background: var(--text-main); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.75rem;
-      opacity: 0; pointer-events: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100;
-      white-space: normal; width: max-content; max-width: 220px; text-align: center; line-height: 1.4; font-weight: 500;
+      background: var(--text-main); color: var(--bg-primary); padding: 8px 12px; border-radius: 6px; font-size: 0.75rem;
+      opacity: 0; pointer-events: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 100;
+      white-space: normal; width: max-content; max-width: 220px; text-align: center; line-height: 1.4; font-weight: 600;
     }
     .tooltip:hover::after { opacity: 1; bottom: 150%; }
 
@@ -241,7 +241,7 @@
   <div class="ad-banner" style="margin-top: 0; margin-bottom: 60px; width: 100%;">ADVERTISEMENT - IN CONTENT (728x90)</div>
 
   <!-- EDUCATIONAL & SEO SECTION -->
-  <section style="background: var(--card); border-radius: 16px; padding: 40px; border: 1px solid var(--border); margin-bottom: 60px;">
+  <section style="background: var(--bg-card); border-radius: 24px; padding: 40px; border: 1px solid var(--border); margin-bottom: 60px;">
     <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; color: var(--text-main); border-bottom: 2px solid var(--primary-light); padding-bottom: 12px; display: inline-block;">📚 Freelance Pricing Guide & Manual</h2>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
