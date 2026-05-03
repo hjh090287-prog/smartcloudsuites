@@ -82,10 +82,11 @@
 
     /* MAIN GRID */
     .main-grid {
-      max-width: 1200px; margin: 0 auto; padding: 30px 24px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      max-width: 1200px; margin: 0 auto; padding: 40px 24px;
+      display: grid; grid-template-columns: 420px 1fr; gap: 32px;
+      align-items: start;
     }
-    @media(max-width:768px) { .main-grid { grid-template-columns: 1fr; } }
+    @media(max-width:968px) { .main-grid { grid-template-columns: 1fr; } }
 
     /* CARDS */
     .card {
@@ -201,12 +202,19 @@
     .breakdown-label { font-size: 0.85rem; color: var(--text-secondary); }
     .breakdown-value { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
 
+    /* RESULTS INTERNAL LAYOUT */
+    .results-content {
+      display: flex; gap: 40px; align-items: flex-start;
+    }
+    @media(max-width: 1100px) { .results-content { flex-direction: column; align-items: center; } }
+    .breakdown-container { flex: 1; width: 100%; }
+
     /* CHART */
-    .chart-container { display: flex; justify-content: center; margin: 20px 0; }
-    .donut-chart { position: relative; width: 180px; height: 180px; max-width: 100%; }
+    .chart-container { display: flex; justify-content: center; margin: 0; flex-shrink: 0; }
+    .donut-chart { position: relative; width: 220px; height: 220px; }
     .donut-chart svg { width: 100%; height: 100%; transform: rotate(-90deg); }
     .donut-chart circle {
-      fill: none; stroke-width: 28;
+      fill: none; stroke-width: 24;
       stroke-linecap: round;
       transition: stroke-dashoffset 0.8s ease;
     }
@@ -215,8 +223,8 @@
       transform: translate(-50%,-50%);
       text-align: center;
     }
-    .chart-center .pct { font-size: 1.6rem; font-weight: 800; }
-    .chart-center .pct-label { font-size: 0.65rem; color: var(--text-muted); }
+    .chart-center .pct { font-size: 2rem; font-weight: 800; color: var(--text-primary); }
+    .chart-center .pct-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
     /* AD ZONE */
     .ad-zone {
@@ -364,29 +372,32 @@
       <div class="sub" id="takeHomeSub">per year after deductions</div>
     </div>
 
-    <!-- CHART -->
-    <div class="chart-container">
-      <div class="donut-chart">
-        <svg viewBox="0 0 100 100">
-          <circle id="circBg" cx="50" cy="50" r="36" stroke="rgba(255,255,255,0.05)" stroke-dasharray="226.19" stroke-dashoffset="0"/>
-          <circle id="circTax" cx="50" cy="50" r="36" stroke="var(--red)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-          <circle id="circAcc" cx="50" cy="50" r="36" stroke="var(--orange)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-          <circle id="circKiwi" cx="50" cy="50" r="36" stroke="var(--blue)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-          <circle id="circLoan" cx="50" cy="50" r="36" stroke="var(--pink)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-          <circle id="circNet" cx="50" cy="50" r="36" stroke="var(--green)" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-        </svg>
-        <div class="chart-center">
-          <div class="pct" id="netPct">0%</div>
-          <div class="pct-label">Take Home</div>
+    <div class="results-content">
+      <!-- CHART -->
+      <div class="chart-container">
+        <div class="donut-chart">
+          <svg viewBox="0 0 100 100">
+            <circle id="circBg" cx="50" cy="50" r="38" stroke="rgba(255,255,255,0.05)" stroke-dasharray="238.76" stroke-dashoffset="0"/>
+            <circle id="circTax" cx="50" cy="50" r="38" stroke="var(--red)" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+            <circle id="circAcc" cx="50" cy="50" r="38" stroke="var(--orange)" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+            <circle id="circKiwi" cx="50" cy="50" r="38" stroke="var(--blue)" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+            <circle id="circLoan" cx="50" cy="50" r="38" stroke="var(--pink)" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+            <circle id="circNet" cx="50" cy="50" r="38" stroke="var(--green)" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+          </svg>
+          <div class="chart-center">
+            <div class="pct" id="netPct">0%</div>
+            <div class="pct-label">Take Home</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- BREAKDOWN -->
-    <div id="breakdown"></div>
-    
-    <div style="margin-top: 32px; text-align: center;">
-      <button onclick="window.print()" style="background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 0.85rem;"><span style="margin-right: 8px;">🖨️</span> Print Summary for Bank</button>
+      <!-- BREAKDOWN -->
+      <div class="breakdown-container">
+        <div id="breakdown"></div>
+        <div style="margin-top: 32px; text-align: right;">
+          <button onclick="window.print()" style="background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border); padding: 12px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 0.8rem; opacity: 0.7;"><span style="margin-right: 8px;">🖨️</span> Print PDF</button>
+        </div>
+      </div>
     </div>
     
     <!-- Ad Zone: Mid-Content Rectangle (High CTR) - MOVED HERE -->
@@ -572,7 +583,7 @@ function calculate() {
   document.getElementById('takeHomeSub').textContent = periodLabels[displayPeriod] + ' after deductions';
 
   // Chart
-  const circ = 226.19;
+  const circ = 238.76;
   const total = annualGross || 1;
   const slices = [
     { id: 'circTax',  val: paye,        color: 'var(--red)' },
