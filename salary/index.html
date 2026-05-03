@@ -158,15 +158,35 @@
       text-align: center; padding: 30px 0; margin-bottom: 24px;
       border-bottom: 1px solid var(--border);
     }
-    .result-hero .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
-    .result-hero .amount {
-      font-size: clamp(3rem, 6vw, 4.2rem);
-      font-weight: 900; letter-spacing: -2px;
-      background: linear-gradient(135deg, var(--green), #55efc4);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin: 8px 0;
+    .result-card {
+      background: linear-gradient(145deg, rgba(108,92,231,0.15) 0%, rgba(0,184,148,0.15) 100%);
+      border: 1px solid rgba(108,92,231,0.3);
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(108,92,231,0.1);
+      position: relative;
+      overflow: hidden;
     }
-    .result-hero .sub { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+    .result-card::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .result-card:hover::before { opacity: 1; }
+    
+    .result-card .label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+    .result-card .amount {
+      font-size: clamp(3.5rem, 7vw, 4.8rem);
+      font-weight: 900; letter-spacing: -2.5px;
+      background: linear-gradient(135deg, #00b894, #55efc4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin: 4px 0 12px;
+      text-shadow: 0 0 20px rgba(0,184,148,0.2);
+    }
+    .result-card .sub { font-size: 0.95rem; color: var(--text-secondary); font-weight: 500; }
 
     /* BREAKDOWN BARS */
     .breakdown-item {
@@ -480,6 +500,21 @@ function formatMoney(n) {
   return '$' + n.toLocaleString('en-NZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+function animateValue(obj, start, end, duration) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const current = start + (end - start) * easeOut;
+    obj.innerHTML = formatMoney(current);
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
 // ====== INPUT PERIOD CONVERSION ======
 let inputPeriod = 'annual';
 const periodMultipliers = { weekly: 52, fortnightly: 26, monthly: 12, annual: 1 };
@@ -522,7 +557,17 @@ function calculate() {
 
   // Display
   const periodLabels = { annual: 'per year', monthly: 'per month', fortnightly: 'per fortnight', weekly: 'per week' };
-  document.getElementById('takeHome').textContent = formatMoney(net / divisor);
+  
+  const takeHomeEl = document.getElementById('takeHome');
+  const finalNet = net / divisor;
+  
+  // Only animate if value is > 0
+  if(finalNet > 0) {
+    animateValue(takeHomeEl, 0, finalNet, 600);
+  } else {
+    takeHomeEl.textContent = formatMoney(0);
+  }
+  
   document.getElementById('takeHomeSub').textContent = periodLabels[displayPeriod] + ' after deductions';
 
   // Chart
