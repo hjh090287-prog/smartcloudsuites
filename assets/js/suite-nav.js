@@ -1,6 +1,6 @@
 (function() {
     const suiteNav = document.createElement('div');
-    suiteNav.id = 'global-suite-nav';
+    suiteNav.id = 'suite-global-nav';
     
     const path = window.location.pathname;
     let rootPath = './';
@@ -12,60 +12,63 @@
     }
 
     const styles = `
-        #global-suite-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 44px;
-            background: #050508;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-            z-index: 100000;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        body {
-            padding-top: 44px !important;
-            margin: 0 !important;
-            overflow-x: hidden !important;
-        }
-        /* Lock background decorative elements */
-        .bg-glow, .bg-grid {
-            position: fixed !important;
-            left: 0 !important;
-            top: 44px !important;
-            width: 100% !important;
-            height: calc(100vh - 44px) !important;
-            z-index: -1 !important;
-        }
-        body > header {
+        #suite-global-nav {
             position: sticky;
-            top: 44px !important;
-            z-index: 9999;
-        }
-        #global-suite-nav a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 9999;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-brand span { color: #10b981; }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-links a {
+            color: rgba(240, 240, 245, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: 0.2s;
         }
-        #global-suite-nav a:hover { color: #fff; }
-        #global-suite-nav a.active { color: #0ea5e9; }
-        #global-suite-nav .dot {
-            width: 5px; height: 5px; border-radius: 50%; background: currentColor;
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
         }
+        .nav-links .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #6c5ce7;
+            opacity: 0.5;
+        }
+        .nav-links a.active .dot {
+            opacity: 1;
+            box-shadow: 0 0 10px #6c5ce7;
+        }
+        
         @media (max-width: 600px) {
-            #global-suite-nav { gap: 12px; }
-            #global-suite-nav a { font-size: 10px; letter-spacing: 1px; }
+            #suite-global-nav { padding: 0 20px; }
+            .nav-brand { font-size: 0.9rem; }
+            .nav-links { gap: 16px; }
         }
     `;
 
@@ -74,17 +77,22 @@
     document.head.appendChild(styleSheet);
 
     suiteNav.innerHTML = `
-        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') ? 'active' : ''}">
-            <div class="dot"></div> Hub
+        <a href="${rootPath}index.html" class="nav-brand">
+            Smart<span>Cloud</span> Suites
         </a>
-        <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
-            <div class="dot"></div> Finance Hub
-        </a>
-        <!-- AdSense Audit: Temporarily Disabled Categories
-        <a href="${rootPath}dev/index.html">Dev</a>
-        <a href="${rootPath}fun/index.html">Fun</a>
-        <a href="${rootPath}creative/index.html">Creative</a>
-        -->
+        <div class="nav-links">
+            <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') ? 'active' : ''}">
+                <div class="dot"></div> Hub
+            </a>
+            <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
+                <div class="dot"></div> Finance Hub
+            </a>
+            /* AdSense Audit: Temporarily Disabled Categories
+            <a href="${rootPath}dev/index.html">Dev</a>
+            <a href="${rootPath}fun/index.html">Fun</a>
+            <a href="${rootPath}creative/index.html">Creative</a>
+            */
+        </div>
     `;
 
     document.body.prepend(suiteNav);
