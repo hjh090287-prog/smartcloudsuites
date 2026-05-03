@@ -239,6 +239,12 @@
       <div class="metric-value" id="val-chars">0</div>
       <div class="metric-label">Characters</div>
     </div>
+    <div class="stat-card">
+        <div class="stat-value" id="density">0%</div>
+        <div class="stat-label">Top Keyword</div>
+      </div>
+      <button class="btn-share" id="share-stats" onclick="shareStats()" style="grid-column: span 2; display: none;">🔗 Share Content Stats</button>
+    </div>
     <div class="metric-card m-sent">
       <div class="metric-value" id="val-sent">0</div>
       <div class="metric-label">Sentences</div>
@@ -421,6 +427,24 @@
     }
     
     document.getElementById('density-body').innerHTML = densityHtml;
+
+    // Show share button
+    if (wordCount > 10) {
+      document.getElementById('share-stats').style.display = 'block';
+    } else {
+      document.getElementById('share-stats').style.display = 'none';
+    }
+  }
+
+  function shareStats() {
+    const words = document.getElementById('val-words').innerText;
+    const chars = document.getElementById('val-chars').innerText;
+    const readTime = document.getElementById('val-read').innerText;
+    const text = `SEO Content Stats: ${words} words, ${chars} chars, ${readTime} read time. 📝 Analyzed with SmartCloud Word Counter: ${window.location.href}`;
+    navigator.clipboard.writeText(text);
+    const btn = document.getElementById('share-stats');
+    btn.innerText = '✅ Stats Copied!';
+    setTimeout(() => btn.innerText = '🔗 Share Content Stats', 2000);
   }
 
   function shareTool() {
