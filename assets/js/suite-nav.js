@@ -4,7 +4,7 @@
     
     const path = window.location.pathname;
     let rootPath = './';
-    if (path.includes('/finance/') || path.includes('/fun/') || path.includes('/creative/')) {
+    if (path.includes('/finance/') || path.includes('/fun/') || path.includes('/creative/') || path.includes('/dev/')) {
         rootPath = '../../';
         if (path.split('/').filter(Boolean).length === 2) { 
              rootPath = '../';
@@ -24,9 +24,16 @@
             justify-content: center;
             align-items: center;
             gap: 24px;
-            z-index: 10000;
+            z-index: 99999;
             font-family: 'Plus Jakarta Sans', sans-serif;
             backdrop-filter: blur(8px);
+        }
+        body {
+            margin-top: 44px !important;
+        }
+        /* Fix for sticky headers on sub-pages */
+        header {
+            top: 44px !important;
         }
         #global-suite-nav a {
             color: rgba(255,255,255,0.5);
@@ -56,11 +63,14 @@
     document.head.appendChild(styleSheet);
 
     suiteNav.innerHTML = `
-        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') && !path.includes('/fun/') && !path.includes('/creative/') ? 'active' : ''}">
+        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') && !path.includes('/fun/') && !path.includes('/creative/') && !path.includes('/dev/') ? 'active' : ''}">
             <div class="dot"></div> Hub
         </a>
         <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
             <div class="dot"></div> Finance
+        </a>
+        <a href="${rootPath}dev/index.html" class="${path.includes('/dev/') ? 'active' : ''}">
+            <div class="dot" style="background: #38bdf8;"></div> Dev
         </a>
         <a href="${rootPath}fun/index.html" class="${path.includes('/fun/') ? 'active' : ''}">
             <div class="dot"></div> Fun
@@ -70,5 +80,5 @@
         </a>
     `;
 
-    document.body.appendChild(suiteNav);
+    document.body.prepend(suiteNav);
 })();
