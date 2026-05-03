@@ -24,16 +24,27 @@
             justify-content: center;
             align-items: center;
             gap: 24px;
-            z-index: 99999;
+            z-index: 100000;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            backdrop-filter: blur(8px);
         }
         body {
-            margin-top: 44px !important;
+            padding-top: 44px !important;
+            margin: 0 !important;
+            overflow-x: hidden !important;
         }
-        /* Fix for sticky headers on sub-pages */
-        header {
+        /* Lock background decorative elements */
+        .bg-glow, .bg-grid {
+            position: fixed !important;
+            left: 0 !important;
             top: 44px !important;
+            width: 100% !important;
+            height: calc(100vh - 44px) !important;
+            z-index: -1 !important;
+        }
+        body > header {
+            position: sticky;
+            top: 44px !important;
+            z-index: 9999;
         }
         #global-suite-nav a {
             color: rgba(255,255,255,0.5);
