@@ -74,18 +74,17 @@
     document.head.appendChild(styleSheet);
 
     suiteNav.innerHTML = `
-        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') && !path.includes('/fun/') && !path.includes('/creative/') && !path.includes('/dev/') ? 'active' : ''}">
+        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') ? 'active' : ''}">
             <div class="dot"></div> Hub
         </a>
         <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
             <div class="dot"></div> Finance Hub
         </a>
-        <!-- AdSense Audit: Temporarily Hiding Other Categories -->
-        <!--
+        /* AdSense Audit: Temporarily Disabled Categories
         <a href="${rootPath}dev/index.html">Dev</a>
         <a href="${rootPath}fun/index.html">Fun</a>
         <a href="${rootPath}creative/index.html">Creative</a>
-        -->
+        */
     `;
 
     document.body.prepend(suiteNav);
