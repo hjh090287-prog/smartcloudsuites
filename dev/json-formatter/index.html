@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter & Validator | SmartCloud Dev Suite</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <meta name="description" content="Free online JSON formatter, validator, and beautifier. Clean your JSON data instantly with syntax highlighting and 100% privacy.">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/dev/json-formatter/">
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON Formatter & Validator",
+    "url": "https://smartcloudsuites.com/dev/json-formatter/",
+    "description": "Professional tool to format, validate, and beautify JSON data.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050508;
+      --panel: #0d0d12;
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --error: #ef4444;
+      --success: #10b981;
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --mono: 'Fira Code', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { padding-top: 50px; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); background: rgba(5,5,8,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; text-decoration: none; color: var(--text); font-size: 1.1rem; }
+    .logo span { color: var(--primary); }
+
+    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); flex: 1; min-height: 600px; }
+    @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
+
+    .editor-panel { background: var(--panel); display: flex; flex-direction: column; position: relative; }
+    .panel-header { padding: 12px 20px; background: rgba(0,0,0,0.2); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .panel-title { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+    textarea { 
+      flex: 1; width: 100%; background: transparent; border: none; padding: 20px; 
+      color: var(--text); font-family: var(--mono); font-size: 0.95rem; line-height: 1.6; 
+      resize: none; outline: none; white-space: pre; overflow: auto;
+    }
+
+    #output { 
+      flex: 1; padding: 20px; font-family: var(--mono); font-size: 0.95rem; line-height: 1.6; 
+      overflow: auto; white-space: pre; color: var(--text);
+    }
+
+    .controls { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 12px; align-items: center; }
+    .btn { 
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); 
+      padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; 
+      transition: 0.2s; font-family: var(--mono);
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); }
+    .btn.primary { background: var(--primary); color: #000; border: none; }
+    .btn.primary:hover { background: #7dd3fc; }
+
+    .status-bar { padding: 8px 20px; font-family: var(--mono); font-size: 0.7rem; display: flex; justify-content: space-between; background: #000; border-top: 1px solid var(--border); }
+    .status-msg { display: flex; align-items: center; gap: 6px; }
+    .status-msg.error { color: var(--error); }
+    .status-msg.success { color: var(--success); }
+
+    /* SEO SECTION */
+    .seo-section { padding: 60px 0; background: var(--panel); border-top: 1px solid var(--border); }
+    .seo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px; }
+    .seo-card h3 { font-size: 1.1rem; margin-bottom: 12px; color: var(--primary); font-family: var(--mono); }
+    .seo-card p { font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.8rem; font-family: var(--mono); }
+
+    /* JSON HIGHLIGHTING */
+    .json-key { color: #f87171; }
+    .json-string { color: #34d399; }
+    .json-number { color: #fbbf24; }
+    .json-boolean { color: #818cf8; }
+    .json-null { color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">Smart<span>Cloud</span> Dev Suite</a>
+    <div class="panel-title">_json_formatter_v1.0</div>
+  </div>
+</header>
+
+<main style="display: flex; flex-direction: column; flex: 1;">
+  <div class="main-grid">
+    <!-- INPUT -->
+    <div class="editor-panel">
+      <div class="panel-header">
+        <span class="panel-title">Input RAW JSON</span>
+        <button class="btn" onclick="clearAll()">Clear</button>
+      </div>
+      <textarea id="json-input" placeholder='{"paste": "your", "json": "here"}' spellcheck="false" oninput="process()"></textarea>
+      <div class="controls">
+        <button class="btn primary" onclick="process()">Beautify (2 Spaces)</button>
+        <button class="btn" onclick="minify()">Minify</button>
+      </div>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="editor-panel">
+      <div class="panel-header">
+        <span class="panel-title">Formatted Result</span>
+        <button class="btn" onclick="copyResult()">Copy to Clipboard</button>
+      </div>
+      <div id="output"></div>
+      <div class="status-bar">
+        <div id="status-msg" class="status-msg">_waiting_for_input</div>
+        <div id="char-count">0 chars</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO SECTION -->
+  <section class="seo-section">
+    <div class="container">
+      <h2 style="font-family: var(--mono); font-size: 1.5rem; letter-spacing: -1px;">// Why use our JSON Formatter?</h2>
+      <div class="seo-grid">
+        <div class="seo-card">
+          <h3>_client_side_security</h3>
+          <p>Your data never leaves your machine. All formatting and validation happen locally in your browser. This is critical for developers handling sensitive API keys or production data.</p>
+        </div>
+        <div class="seo-card">
+          <h3>_instant_validation</h3>
+          <p>Find syntax errors immediately. Our tool highlights exactly where your JSON is broken, saving you time debugging malformed payloads or missing commas.</p>
+        </div>
+        <div class="seo-card">
+          <h3>_developer_friendly</h3>
+          <p>Built by developers, for developers. Optimized for speed, with high-contrast syntax highlighting and easy "Copy to Clipboard" functionality for seamless workflow integration.</p>
+        </div>
+      </div>
+
+      <!-- Related Tools Section -->
+      <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+        <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff; font-family: var(--mono);">🚀 Discover More Tools</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <a href="../base64/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">01</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">Base64 Tool</span>
+          </a>
+          <a href="../string-escaper/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">"\</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">String Escaper</span>
+          </a>
+          <a href="../../fun/word-counter/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">📝</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">Word Counter</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; 2026 SmartCloud Suites. // No logs, no tracking.
+  </div>
+</footer>
+
+<script>
+  const input = document.getElementById('json-input');
+  const output = document.getElementById('output');
+  const statusMsg = document.getElementById('status-msg');
+  const charCount = document.getElementById('char-count');
+
+  function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+      json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, function (match) {
+      var cls = 'json-number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'json-key';
+        } else {
+          cls = 'json-string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'json-boolean';
+      } else if (/null/.test(match)) {
+        cls = 'json-null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+  function process() {
+    const raw = input.value.trim();
+    if (!raw) {
+      output.innerHTML = '';
+      statusMsg.innerHTML = '_waiting_for_input';
+      statusMsg.className = 'status-msg';
+      charCount.innerText = '0 chars';
+      return;
+    }
+
+    try {
+      const obj = JSON.parse(raw);
+      const formatted = JSON.stringify(obj, null, 2);
+      output.innerHTML = syntaxHighlight(formatted);
+      statusMsg.innerHTML = '✓ _valid_json';
+      statusMsg.className = 'status-msg success';
+      charCount.innerText = formatted.length + ' chars';
+    } catch (e) {
+      output.innerHTML = '<span style="color: var(--error)">' + e.message + '</span>';
+      statusMsg.innerHTML = '× _invalid_json';
+      statusMsg.className = 'status-msg error';
+      charCount.innerText = '--';
+    }
+  }
+
+  function minify() {
+    const raw = input.value.trim();
+    if (!raw) return;
+    try {
+      const obj = JSON.parse(raw);
+      const minified = JSON.stringify(obj);
+      output.innerHTML = syntaxHighlight(minified);
+      statusMsg.innerHTML = '✓ _minified';
+      statusMsg.className = 'status-msg success';
+      charCount.innerText = minified.length + ' chars';
+    } catch (e) {
+      process(); // will show error
+    }
+  }
+
+  function copyResult() {
+    const text = output.innerText;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = statusMsg.innerHTML;
+      statusMsg.innerHTML = '✓ _copied_to_clipboard';
+      setTimeout(() => statusMsg.innerHTML = original, 2000);
+    });
+  }
+
+  function clearAll() {
+    input.value = '';
+    process();
+  }
+
+  // Handle Tab key in textarea
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+      this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+      this.selectionStart = this.selectionEnd = start + 2;
+    }
+  });
+</script>
+
+<script src="../../assets/js/suite-nav.js"></script>
+<script src="../../assets/js/suite-footer.js"></script>
+</body>
+</html>

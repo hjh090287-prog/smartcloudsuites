@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 Encoder & Decoder | SmartCloud Dev Suite</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <meta name="description" content="Free online Base64 encoder and decoder. Convert text to Base64 or decode Base64 strings instantly. 100% private and secure browser-based tool.">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/dev/base64/">
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Base64 Encoder & Decoder",
+    "url": "https://smartcloudsuites.com/dev/base64/",
+    "description": "Convert text and data to/from Base64 format securely.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050508;
+      --panel: #0d0d12;
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --accent: #818cf8;
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --mono: 'Fira Code', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { padding-top: 50px; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); background: rgba(5,5,8,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; text-decoration: none; color: var(--text); font-size: 1.1rem; }
+    .logo span { color: var(--primary); }
+
+    .tool-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 40px 0; }
+    @media (max-width: 800px) { .tool-layout { grid-template-columns: 1fr; } }
+
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; }
+    .card-header { padding: 16px 24px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 0.75rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
+    textarea { 
+      width: 100%; min-height: 300px; background: transparent; border: none; padding: 24px; 
+      color: var(--text); font-family: var(--mono); font-size: 0.95rem; line-height: 1.6; 
+      resize: vertical; outline: none;
+    }
+
+    .card-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    
+    .btn { 
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); 
+      padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; 
+      transition: 0.2s; font-family: var(--mono);
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); }
+    .btn.primary { background: var(--primary); color: #000; border: none; }
+    .btn.accent { background: var(--accent); color: #000; border: none; }
+
+    .swap-btn { 
+      align-self: center; background: var(--panel); border: 1px solid var(--border); 
+      color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+    }
+    .swap-btn:hover { color: var(--primary); border-color: var(--primary); transform: rotate(180deg); }
+
+    /* SEO SECTION */
+    .seo-section { padding: 60px 0; background: var(--panel); border-top: 1px solid var(--border); border-radius: 32px 32px 0 0; }
+    .seo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px; }
+    .seo-card h3 { font-size: 1.1rem; margin-bottom: 12px; color: var(--accent); font-family: var(--mono); }
+    .seo-card p { font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.8rem; font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">Smart<span>Cloud</span> Dev Suite</a>
+    <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted);">_base64_codec_v1.0</div>
+  </div>
+</header>
+
+<main class="container">
+  <div style="text-align: center; padding: 60px 0 20px;">
+    <h1 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;">Base64 <span>Codec</span></h1>
+    <p style="color: var(--text-muted); font-family: var(--mono); font-size: 1rem;">// Encode or Decode strings instantly. 100% Private.</p>
+  </div>
+
+  <div class="tool-layout">
+    <!-- TEXT INPUT -->
+    <div class="card">
+      <div class="card-header">Plain Text / Raw Data</div>
+      <textarea id="plain-text" placeholder="Type or paste plain text here..." oninput="autoEncode()"></textarea>
+      <div class="card-footer">
+        <button class="btn primary" onclick="encode()">Encode &darr;</button>
+        <button class="btn" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+
+    <!-- BASE64 OUTPUT -->
+    <div class="card">
+      <div class="card-header">Base64 Encoded</div>
+      <textarea id="base64-text" placeholder="Base64 string goes here..." oninput="autoDecode()"></textarea>
+      <div class="card-footer">
+        <button class="btn accent" onclick="decode()">Decode &uarr;</button>
+        <button class="btn" onclick="copyBase64()">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO SECTION -->
+  <section class="seo-section">
+    <div class="container">
+      <h2 style="font-family: var(--mono); font-size: 1.5rem; letter-spacing: -1px;">// Deep Dive: Base64 Encoding</h2>
+      <div class="seo-grid">
+        <div class="seo-card">
+          <h3>_how_it_works</h3>
+          <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used to embed images in HTML or transmit data through protocols that only support text.</p>
+        </div>
+        <div class="seo-card">
+          <h3>_privacy_assurance</h3>
+          <p>This tool uses the native `btoa()` and `atob()` browser APIs. Your data is processed entirely on your machine. We never upload your strings to any server, making it safe for API tokens and configuration strings.</p>
+        </div>
+        <div class="seo-card">
+          <h3>_common_use_cases</h3>
+          <p>Developers use Base64 to encode basic auth headers, embed small assets in CSS/HTML, or handle non-ASCII characters in URLs. It increases file size by roughly 33% but ensures data integrity across different systems.</p>
+        </div>
+      </div>
+
+      <!-- Related Tools Section -->
+      <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+        <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff; font-family: var(--mono);">🚀 Discover More Tools</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <a href="../json-formatter/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">{}</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">JSON Formatter</span>
+          </a>
+          <a href="../string-escaper/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">"\</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">String Escaper</span>
+          </a>
+          <a href="../../creative/qr-generator/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+            <span style="font-size: 1.5rem;">📱</span>
+            <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem; font-family: var(--mono);">QR Generator</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; 2026 SmartCloud Suites. // Built for speed.
+  </div>
+</footer>
+
+<script>
+  const plainInput = document.getElementById('plain-text');
+  const base64Input = document.getElementById('base64-text');
+
+  function encode() {
+    try {
+      const text = plainInput.value;
+      // Use UTF-8 safe encoding
+      const encoded = btoa(unescape(encodeURIComponent(text)));
+      base64Input.value = encoded;
+    } catch (e) {
+      base64Input.value = "Error: Invalid input for encoding.";
+    }
+  }
+
+  function decode() {
+    try {
+      const text = base64Input.value.trim();
+      // Use UTF-8 safe decoding
+      const decoded = decodeURIComponent(escape(atob(text)));
+      plainInput.value = decoded;
+    } catch (e) {
+      plainInput.value = "Error: Invalid Base64 string.";
+    }
+  }
+
+  function autoEncode() {
+    if (plainInput.value.length < 5000) encode();
+  }
+
+  function autoDecode() {
+    if (base64Input.value.length < 5000) decode();
+  }
+
+  function clearAll() {
+    plainInput.value = '';
+    base64Input.value = '';
+  }
+
+  function copyBase64() {
+    navigator.clipboard.writeText(base64Input.value);
+  }
+</script>
+
+<script src="../../assets/js/suite-nav.js"></script>
+<script src="../../assets/js/suite-footer.js"></script>
+</body>
+</html>

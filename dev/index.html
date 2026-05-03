@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Utility Suite | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta name="description" content="Professional-grade developer tools including JSON formatters, Base64 decoders, and string utilities. 100% private and client-side.">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/dev/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://smartcloudsuites.com/dev/">
+  <meta property="og:title" content="Developer Utility Suite | SmartCloud Suites">
+  <meta property="og:description" content="Pro-grade developer tools. JSON formatting, Base64 encoding, and more. 100% private.">
+  <meta property="og:image" content="https://smartcloudsuites.com/assets/og-image.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+  
+  <style>
+    :root {
+      --bg: #030305;
+      --card: rgba(255, 255, 255, 0.02);
+      --card-hover: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.06);
+      --primary: #38bdf8; /* Sky blue for Dev branch */
+      --accent: #818cf8;
+      --text: #f1f5f9;
+      --text-muted: #64748b;
+      --mono: 'Fira Code', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-grid {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+    .bg-glow {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    header {
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo span { color: #38bdf8; }
+    .branch-badge { font-family: var(--mono); font-size: 0.75rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--primary); padding: 4px 12px; border-radius: 4px; display: inline-block; margin-top: 10px; }
+
+    .hero { text-align: center; padding: 60px 0 80px; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
+    .hero span { color: var(--primary); }
+    .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; font-family: var(--mono); }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .tool-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 32px; text-decoration: none; color: inherit;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      backdrop-filter: blur(10px);
+    }
+    .tool-card:hover { background: var(--card-hover); border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); opacity: 0; transition: 0.3s; }
+    .tool-card:hover::before { opacity: 1; }
+    
+    .tool-card .icon { font-size: 2rem; margin-bottom: 24px; color: var(--primary); }
+    .tool-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; font-family: var(--mono); }
+    .tool-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
+    .tool-card .status { font-family: var(--mono); font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
+    .ad-space { max-width: 728px; margin: 0 auto 60px; height: 90px; background: rgba(255,255,255,0.01); border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+
+    footer { margin-top: auto; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.85rem; font-family: var(--mono); }
+    footer a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+    footer a:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">Smart<span>Cloud</span> Suites</a><br>
+      <div class="branch-badge">Developer Suite v1.0</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Tools for <span>Builders.</span></h1>
+      <p>> Professional utilities for modern workflows. 100% Private.</p>
+    </section>
+
+    <div class="ad-space">Advertisement - Header Leaderboard</div>
+
+    <div class="tools-grid">
+      
+      <!-- JSON FORMATTER -->
+      <a href="json-formatter/index.html" class="tool-card">
+        <div class="icon">{}</div>
+        <h2>JSON Formatter</h2>
+        <p>Clean, validate, and beautify your JSON data. Supports dark mode and instant copy.</p>
+        <div class="status">_ready</div>
+      </a>
+
+      <!-- BASE64 TOOL -->
+      <a href="base64/index.html" class="tool-card">
+        <div class="icon">0101</div>
+        <h2>Base64 Tool</h2>
+        <p>Encode and decode strings or files to Base64 format instantly in your browser.</p>
+        <div class="status">_ready</div>
+      </a>
+
+      <!-- STRING ESCAPER -->
+      <a href="string-escaper/index.html" class="tool-card">
+        <div class="icon">"\n"</div>
+        <h2>String Escaper</h2>
+        <p>Escape or unescape strings for JSON, HTML, or Shell scripts. Clean and safe.</p>
+        <div class="status">_ready</div>
+      </a>
+
+    </div>
+
+    <div class="ad-space">Advertisement - Footer Leaderboard</div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 SmartCloud Suites. // Built for efficiency.</p>
+      <p style="margin-top: 10px;">
+        <a href="../privacy.html">Privacy</a> | 
+        <a href="../contact.html">Contact</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/suite-nav.js"></script>
+  <script src="../assets/js/suite-footer.js"></script>
+</body>
+</html>
