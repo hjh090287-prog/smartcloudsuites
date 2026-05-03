@@ -221,7 +221,11 @@
   <main class="container">
     <section class="hero">
       <h1>Smart tools for the <br> <span>modern world.</span></h1>
-      <p>Professional-grade tools for salary, mortgages, freelance pricing — and much more. Built for speed, accuracy, and people who mean business.</p>
+      <p>A premium collection of high-traffic utilities, finance calculators, and viral tools. Built for speed, precision, and global performance.</p>
+      <div style="margin-top: 32px; display: flex; justify-content: center; gap: 12px;">
+        <a href="#tools" style="background: var(--primary); color: #000; padding: 12px 32px; border-radius: 100px; font-weight: 700; text-decoration: none; display: inline-block;">Browse Tools</a>
+        <button onclick="shareTool()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; padding: 12px 24px; border-radius: 100px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">🔗 Share Suite</button>
+      </div>
     </section>
 
     <div class="ad-space">Advertisement - Header Leaderboard</div>
@@ -291,6 +295,25 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    function shareTool() {
+      const url = window.location.href;
+      const title = "SmartCloud Suites | Professional Tool Hub";
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(err => copyFallback(url));
+      } else {
+        copyFallback(url);
+      }
+    }
+    function copyFallback(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link to share:', url);
+      });
+    }
+  </script>
 
 </body>
 </html>

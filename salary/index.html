@@ -689,14 +689,27 @@ document.getElementById('payFrequency').addEventListener('change', calculate);
 // Initial calculation
 calculate();
 
-function shareTool() {
-  if (navigator.share) {
-    navigator.share({ title: 'NZ Salary Calculator', url: window.location.href });
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert('Link copied to clipboard!');
+  function shareTool() {
+    const url = window.location.href;
+    const title = "NZ Salary Calculator | SmartCloud Suites";
+    if (navigator.share) {
+      navigator.share({ title: title, url: url }).catch(err => copyFallback(url));
+    } else {
+      copyFallback(url);
+    }
   }
-}
+
+  function copyFallback(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link to share:', url);
+      });
+    } else {
+      prompt('Copy this link to share:', url);
+    }
+  }
 </script>
 </body>
 </html>

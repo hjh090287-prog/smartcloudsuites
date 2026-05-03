@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NZ Mortgage & Repayment Calculator | Independent Property Tools</title>
-  <meta name="description" content="Calculate your mortgage repayments, rental yield, and house affordability. Includes extra repayments logic and full amortization schedule.">
   <title>Mortgage Intelligence | SmartCloud Suites</title>
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="description" content="Calculate mortgage repayments, rental yield, and affordability with our premium financial tool.">
@@ -503,6 +501,28 @@
 
   // Init
   calculate();
+
+  function shareTool() {
+    const url = window.location.href;
+    const title = "Mortgage Intelligence | SmartCloud Suites";
+    if (navigator.share) {
+      navigator.share({ title: title, url: url }).catch(err => copyFallback(url));
+    } else {
+      copyFallback(url);
+    }
+  }
+
+  function copyFallback(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link to share:', url);
+      });
+    } else {
+      prompt('Copy this link to share:', url);
+    }
+  }
 </script>
 
 </body>
