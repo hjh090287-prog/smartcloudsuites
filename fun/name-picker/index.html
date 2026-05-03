@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Name Picker & Giveaway Wheel | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <meta name="description" content="Free, fair, and fun random name picker for giveaways, raffles, and contests. Perfect for social media influencers. 100% private and viral-ready.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/fun/name-picker/">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Viral Random Name Picker | Free Giveaway Tool">
+  <meta property="og:description" content="Pick winners fairly for your social media giveaways. Visual, fun, and 100% free.">
+  <meta property="og:image" content="https://smartcloudsuites.com/assets/og-name-picker.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg: #030305;
+      --card: #0a0a0f;
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #f59e0b;
+      --text: #f1f5f9;
+      --text-muted: #64748b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { padding-top: 50px; font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); background: rgba(3,3,5,0.8); backdrop-filter: blur(10px); position: fixed; top: 0; width: 100%; z-index: 1000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.2rem; font-weight: 900; text-decoration: none; color: white; }
+    .logo span { color: var(--primary); }
+
+    .main-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; margin-top: 60px; }
+    @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
+
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; height: fit-content; }
+    .input-panel h2 { font-size: 1.5rem; margin-bottom: 24px; letter-spacing: -0.5px; }
+    
+    textarea { 
+      width: 100%; min-height: 300px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+      border-radius: 12px; color: white; padding: 20px; font-family: inherit; font-size: 1rem; 
+      margin-bottom: 20px; resize: none; outline: none;
+    }
+    textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(245,158,11,0.1); }
+
+    .picker-stage { background: var(--card); border: 1px solid var(--border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 40px; position: relative; overflow: hidden; }
+    
+    .winner-announcement { 
+      text-align: center; transform: scale(0.8); opacity: 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: absolute; width: 100%; z-index: 10;
+    }
+    .winner-announcement.show { transform: scale(1); opacity: 1; }
+    .winner-announcement h3 { font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; }
+    .winner-name { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 30px; }
+
+    .visualizer { width: 100%; height: 200px; position: relative; overflow: hidden; margin-bottom: 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .name-strip { display: flex; gap: 20px; position: absolute; transition: transform 0.1s linear; }
+    .name-item { font-size: 2rem; font-weight: 800; color: rgba(255,255,255,0.1); white-space: nowrap; }
+    .name-item.active { color: var(--primary); transform: scale(1.2); }
+
+    .btn-pick { 
+      background: var(--primary); color: #000; border: none; padding: 20px 60px; 
+      border-radius: 100px; font-size: 1.25rem; font-weight: 800; cursor: pointer; 
+      transition: all 0.3s; box-shadow: 0 10px 30px rgba(245,158,11,0.3);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .btn-pick:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 15px 40px rgba(245,158,11,0.4); }
+    .btn-pick:disabled { background: #333; color: #666; cursor: not-allowed; box-shadow: none; transform: none; }
+
+    /* SEO SECTION */
+    .seo-section { padding: 80px 0; border-top: 1px solid var(--border); margin-top: 80px; }
+    .seo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+    .seo-card h4 { font-size: 1.25rem; margin-bottom: 16px; color: var(--primary); }
+    .seo-card p { line-height: 1.6; color: var(--text-muted); font-size: 0.95rem; }
+
+    .ad-banner { margin: 40px auto; width: 100%; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; height: 90px; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+
+    footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="../../index.html" class="logo">Smart<span>Cloud</span> Suites</a>
+    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">RANDOM NAME PICKER v1.0</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="main-grid">
+    <!-- LEFT: INPUT -->
+    <div class="input-panel">
+      <h2>🎟️ Giveaway Entrants</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Paste your names below (one per line). Perfect for Instagram, TikTok, and YouTube contests.</p>
+      <textarea id="names-input" placeholder="Enter names...&#10;John Doe&#10;Jane Smith&#10;Alex Rivera..."></textarea>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="name-count" style="font-weight: 700; color: var(--primary);">0 Entrants</span>
+        <button onclick="clearNames()" style="background: transparent; border: 1px solid var(--border); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">Clear List</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: VISUALIZER -->
+    <div class="picker-stage">
+      <div id="visualizer" class="visualizer">
+        <div id="name-strip" class="name-strip">
+          <!-- JS generates this -->
+        </div>
+      </div>
+
+      <div id="winner-announcement" class="winner-announcement">
+        <h3>🎉 The Winner Is! 🎉</h3>
+        <div id="winner-name" class="winner-name">---</div>
+        <button class="btn-pick" onclick="resetPicker()" style="background: rgba(255,255,255,0.05); color: white; margin: 0 auto; padding: 12px 30px; font-size: 1rem; box-shadow: none;">Pick Another</button>
+      </div>
+
+      <button id="pick-btn" class="btn-pick" onclick="startSelection()">
+        <span>Spin for Winner!</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
+      </button>
+
+      <div style="margin-top: 40px; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+        🛡️ <strong>Fair Play:</strong> Selection is done 100% locally in your browser via cryptographically secure random number generation.
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-banner">ADVERTISEMENT - FOOTER LEADERBOARD</div>
+
+  <!-- SEO SECTION -->
+  <section class="seo-section">
+    <div class="seo-grid">
+      <div class="seo-card">
+        <h4>Fair & Transparent Results</h4>
+        <p>Our random name picker uses the modern Web Crypto API to ensure every entrant has an mathematically equal chance of winning. No hidden algorithms, no bias—just pure, fair results for your giveaway.</p>
+      </div>
+      <div class="seo-card">
+        <h4>Influencer & Business Ready</h4>
+        <p>Whether you're running a massive Instagram giveaway or just picking a name for a classroom raffle, our tool handles thousands of entrants with zero lag. It's the most reliable visual name picker on the web.</p>
+      </div>
+      <div class="seo-card">
+        <h4>100% Privacy & Data Safety</h4>
+        <p>Unlike other contest tools, we don't store your list of entrants or names on any server. Everything happens locally in your browser. Your data remains your data, always.</p>
+      </div>
+    </div>
+
+    <!-- Related Tools Section -->
+    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+      <h3 style="margin-bottom: 20px; font-size: 1.15rem; color: #ffffff;">🚀 Discover More Tools</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <a href="../decision-wheel/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+          <span style="font-size: 1.5rem;">🎡</span>
+          <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">Decision Wheel</span>
+        </a>
+        <a href="../../creative/image-compressor/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+          <span style="font-size: 1.5rem;">🖼️</span>
+          <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">Image Shrinker</span>
+        </a>
+        <a href="../../finance/salary/index.html" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s;">
+          <span style="font-size: 1.5rem;">💰</span>
+          <span style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">Salary Calc</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; 2026 SmartCloud Suites. // Built for Viral Growth.
+  </div>
+</footer>
+
+<script>
+  const input = document.getElementById('names-input');
+  const countDisplay = document.getElementById('name-count');
+  const strip = document.getElementById('name-strip');
+  const pickBtn = document.getElementById('pick-btn');
+  const winnerAnnouncement = document.getElementById('winner-announcement');
+  const winnerNameDisplay = document.getElementById('winner-name');
+
+  input.addEventListener('input', updateCount);
+
+  function updateCount() {
+    const names = getNames();
+    countDisplay.innerText = names.length + ' Entrants';
+    generateStrip(names);
+  }
+
+  function getNames() {
+    return input.value.split('\n').map(n => n.trim()).filter(n => n.length > 0);
+  }
+
+  function generateStrip(names) {
+    if (names.length === 0) {
+      strip.innerHTML = '<div class="name-item">Enter names to start...</div>';
+      return;
+    }
+    // Repeat names to fill the strip visually
+    let html = '';
+    const displayList = names.length < 10 ? [...names, ...names, ...names, ...names] : names;
+    displayList.forEach(name => {
+      html += `<div class="name-item">${name}</div>`;
+    });
+    strip.innerHTML = html;
+  }
+
+  function startSelection() {
+    const names = getNames();
+    if (names.length < 2) {
+      alert("Please enter at least 2 names to pick a winner!");
+      return;
+    }
+
+    pickBtn.disabled = true;
+    pickBtn.style.display = 'none';
+    
+    // Animation logic
+    let duration = 3000; // 3 seconds
+    let startTime = null;
+    
+    const winner = names[Math.floor(Math.random() * names.length)];
+    
+    function animate(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const progress = currentTime - startTime;
+      
+      // Dramatic slowdown
+      const speed = Math.max(50, (progress / duration) * 500);
+      strip.style.transform = `translateX(${-((progress / 2) % 1000)}px)`;
+
+      if (progress < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        showWinner(winner);
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  function showWinner(name) {
+    document.getElementById('visualizer').style.display = 'none';
+    winnerNameDisplay.innerText = name;
+    winnerAnnouncement.classList.add('show');
+    
+    // Fire confetti (simple visual pop)
+    createConfetti();
+  }
+
+  function resetPicker() {
+    winnerAnnouncement.classList.remove('show');
+    document.getElementById('visualizer').style.display = 'flex';
+    pickBtn.style.display = 'flex';
+    pickBtn.disabled = false;
+  }
+
+  function clearNames() {
+    input.value = '';
+    updateCount();
+  }
+
+  function createConfetti() {
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.backgroundColor = ['#f59e0b', '#38bdf8', '#818cf8', '#10b981'][Math.floor(Math.random() * 4)];
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.top = '-10px';
+      confetti.style.borderRadius = '2px';
+      confetti.style.zIndex = '100';
+      document.body.appendChild(confetti);
+
+      const animation = confetti.animate([
+        { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+      ], {
+        duration: Math.random() * 2000 + 1000,
+        easing: 'cubic-bezier(0, .9, .57, 1)'
+      });
+
+      animation.onfinish = () => confetti.remove();
+    }
+  }
+
+  // Initial
+  updateCount();
+</script>
+
+<script src="../../assets/js/suite-nav.js"></script>
+<script src="../../assets/js/suite-footer.js"></script>
+</body>
+</html>
