@@ -78,19 +78,13 @@
             <div class="dot"></div> Hub
         </a>
         <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
-            <div class="dot"></div> Finance
+            <div class="dot"></div> Finance Hub
         </a>
         <!-- AdSense Audit: Temporarily Hiding Other Categories -->
         <!--
-        <a href="${rootPath}dev/index.html" class="${path.includes('/dev/') ? 'active' : ''}">
-            <div class="dot" style="background: #38bdf8;"></div> Dev
-        </a>
-        <a href="${rootPath}fun/index.html" class="${path.includes('/fun/') ? 'active' : ''}">
-            <div class="dot"></div> Fun
-        </a>
-        <a href="${rootPath}creative/index.html" class="${path.includes('/creative/') ? 'active' : ''}">
-            <div class="dot" style="background: #8b5cf6;"></div> Creative
-        </a>
+        <a href="${rootPath}dev/index.html">Dev</a>
+        <a href="${rootPath}fun/index.html">Fun</a>
+        <a href="${rootPath}creative/index.html">Creative</a>
         -->
     `;
 
