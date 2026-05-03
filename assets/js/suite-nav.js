@@ -80,6 +80,8 @@
         <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
             <div class="dot"></div> Finance
         </a>
+        <!-- AdSense Audit: Temporarily Hiding Other Categories -->
+        <!--
         <a href="${rootPath}dev/index.html" class="${path.includes('/dev/') ? 'active' : ''}">
             <div class="dot" style="background: #38bdf8;"></div> Dev
         </a>
@@ -89,6 +91,7 @@
         <a href="${rootPath}creative/index.html" class="${path.includes('/creative/') ? 'active' : ''}">
             <div class="dot" style="background: #8b5cf6;"></div> Creative
         </a>
+        -->
     `;
 
     document.body.prepend(suiteNav);
