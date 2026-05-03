@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Freelance Hourly Rate Calculator | Calculate Your True Value</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="description" content="Calculate the exact hourly, daily, and project rates you need to charge as a freelancer to hit your target salary after expenses and unbillable time.">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://smartcloudsuites.com/freelance/">
@@ -340,6 +341,15 @@
     
     document.getElementById('totalBillableHours').innerText = Math.round(totalBillableHours).toLocaleString();
     document.getElementById('totalGrossRequired').innerText = Math.round(grossRequired).toLocaleString();
+  }
+
+  function shareTool() {
+    if (navigator.share) {
+      navigator.share({ title: 'Freelance Rate Calculator', url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   }
 
   // Init

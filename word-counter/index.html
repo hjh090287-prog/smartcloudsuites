@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SEO & Word Counter Pro | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="description" content="A free, professional word and character counter. Calculate reading time, speaking time, and keyword density for SEO writing.">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://smartcloudsuites.com/word-counter/">
@@ -210,6 +211,7 @@
   <div class="hero">
     <h1>SEO & Word Counter Pro</h1>
     <p>100% accurate, private counting. Perfect for essays, tweets, and SEO optimization.</p>
+    <button onclick="shareTool()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 100px; margin-top: 20px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">🔗 Share this Tool</button>
   </div>
 
   <div class="ad-banner">ADVERTISEMENT - HEADER LEADERBOARD</div>
@@ -387,6 +389,15 @@
     }
     
     document.getElementById('density-body').innerHTML = densityHtml;
+  }
+
+  function shareTool() {
+    if (navigator.share) {
+      navigator.share({ title: 'SEO Word Counter Pro', url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   }
 </script>
 

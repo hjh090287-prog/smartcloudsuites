@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NZ Salary Calculator 2025-2026 | Take Home Pay After Tax | PAYE, KiwiSaver, ACC</title>
+  <title>NZ Salary Calculator 2025-2026 | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="description" content="Free NZ Salary Calculator for 2025-2026. Instantly calculate your take-home pay after PAYE tax, ACC levy, KiwiSaver & student loan deductions. Updated for April 2025 tax rates.">
   <meta name="keywords" content="NZ salary calculator, PAYE calculator NZ, take home pay NZ, salary after tax New Zealand, KiwiSaver calculator, ACC levy, student loan repayment NZ">
   <meta name="robots" content="index, follow">
@@ -340,6 +341,7 @@
     
     <h1>NZ Salary Calculator <span style="background: var(--accent-grad); -webkit-background-clip: text; -webkit-fill-color: transparent;">2025 - 2026</span></h1>
     <p>Free, instant NZ salary calculator with real-time PAYE tax, ACC earner's levy, KiwiSaver contributions & student loan deductions. Updated for the 2025–2026 tax year.</p>
+    <button onclick="shareTool()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 100px; margin-top: 20px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">🔗 Share this Tool</button>
   </div>
 </section>
 
@@ -686,6 +688,15 @@ document.getElementById('payFrequency').addEventListener('change', calculate);
 
 // Initial calculation
 calculate();
+
+function shareTool() {
+  if (navigator.share) {
+    navigator.share({ title: 'NZ Salary Calculator', url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Link copied to clipboard!');
+  }
+}
 </script>
 </body>
 </html>

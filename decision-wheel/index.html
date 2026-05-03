@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ultimate Decision Wheel | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="description" content="Spin the wheel to make a random choice. Perfect for giveaways, classrooms, and daily decisions. Free, fast, and fun.">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://smartcloudsuites.com/decision-wheel/">
@@ -211,6 +212,7 @@
   <div class="hero">
     <h1>Ultimate Decision Wheel</h1>
     <p>Can't decide? Let the wheel choose for you. Perfect for classrooms, giveaways, and game nights.</p>
+    <button onclick="shareTool()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 100px; margin-top: 20px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">🔗 Share this Tool</button>
   </div>
 
   <div class="ad-banner">ADVERTISEMENT - HEADER LEADERBOARD</div>
@@ -407,6 +409,15 @@ Thai Food</textarea>
 
   function closeModal() {
     document.getElementById('winnerModal').classList.remove('show');
+  }
+
+  function shareTool() {
+    if (navigator.share) {
+      navigator.share({ title: 'Ultimate Decision Wheel', url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   }
 
   // Initial draw
