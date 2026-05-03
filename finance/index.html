@@ -1,131 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finance Intelligence Hub | SmartCloud Suites</title>
-  <link rel="icon" type="image/png" href="../assets/favicon.png">
-  <meta name="description" content="Professional financial calculators for NZ retail business owners. Master your margins, GST, and landed costs with our expert guide.">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
-
-  <style>
-    :root {
-      --bg: #050508;
-      --card: rgba(255, 255, 255, 0.03);
-      --border: rgba(255, 255, 255, 0.08);
-      --primary: #10b981;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Intelligence Hub | SmartCloud Suites</title>
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="description" content="Professional financial calculators for NZ retail business owners. Master your margins, GST, and landed costs.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
-    header { padding: 30px 0; border-bottom: 1px solid var(--border); text-align: center; }
-    .logo { font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--primary); }
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
 
-    .hero { padding: 60px 0 40px; text-align: center; }
-    .hero h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; }
+    <style>
+        :root {
+            --bg: #050508;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --primary: #10b981;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --nav-height: 70px;
+        }
 
-    /* CALCULATOR */
-    .calc-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 24px; padding: 40px; margin-bottom: 60px;
-      backdrop-filter: blur(10px);
-    }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            padding-top: var(--nav-height);
+        }
 
-    .input-group { margin-bottom: 24px; }
-    label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
-    input { 
-      width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); 
-      border: 1px solid var(--border); border-radius: 12px; 
-      color: white; font-size: 1.1rem; outline: none; transition: 0.2s;
-    }
-    input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
 
-    .result-box {
-      background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: 16px; padding: 24px; text-align: center;
-    }
-    .result-val { font-size: 2rem; font-weight: 800; color: var(--primary); }
-    .result-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem; }
-  </style>
+        .logo { font-weight: 800; font-size: 1.25rem; color: white; text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        nav ul { display: flex; list-style: none; gap: 32px; align-items: center; }
+        nav a { 
+            text-decoration: none; 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        nav a:hover, nav a.active { color: white; }
+
+        .dot { height: 8px; width: 8px; border-radius: 50%; margin-right: 10px; }
+        .dot-hub { background-color: #7c4dff; }
+        .dot-finance { background-color: #3f51b5; box-shadow: 0 0 10px rgba(63, 81, 181, 0.5); }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; color: white; }
+
+        .calc-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 24px; padding: 40px; margin-bottom: 60px;
+        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+        .input-group { margin-bottom: 24px; }
+        label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
+        input { 
+            width: 100%; padding: 16px; background: rgba(0,0,0,0.3); 
+            border: 1px solid var(--border); border-radius: 12px; 
+            color: white; font-size: 1.1rem; outline: none;
+        }
+
+        .result-box {
+            background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px; padding: 30px; text-align: center; margin-bottom: 16px;
+        }
+        .result-val { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+        .result-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+        footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); }
+    </style>
 </head>
 <body>
 
 <header>
-  <div class="container">
-    <a href="../index.html" class="logo">Smart<span>Cloud</span> Suites</a>
-  </div>
+    <div class="nav-container">
+        <a href="../index.html" class="logo">Smart<span>Cloud</span> Suites</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html"><span class="dot dot-hub"></span>Hub</a></li>
+                <li><a href="index.html" class="active"><span class="dot dot-finance"></span>Finance Hub</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
 <main class="container">
-  <section class="hero">
-    <h1>NZ Margin & GST Calculator</h1>
-    <p>Professional profit intelligence for New Zealand retail & furniture stores.</p>
-  </section>
+    <section class="hero">
+        <h1>Retail Margin & GST Calculator</h1>
+        <p>A specialized tool for New Zealand business owners.</p>
+    </section>
 
-  <div class="calc-card">
-    <div class="grid">
-      <div class="inputs">
-        <div class="input-group">
-          <label>Item Cost (GST Excl)</label>
-          <input type="number" id="cost" value="100" oninput="calculate()">
+    <div class="calc-card">
+        <div class="grid">
+            <div class="inputs">
+                <div class="input-group">
+                    <label>Item Cost (GST Excl)</label>
+                    <input type="number" id="cost" value="100" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Desired Profit Margin (%)</label>
+                    <input type="number" id="margin" value="50" oninput="calculate()">
+                </div>
+            </div>
+            <div class="results">
+                <div class="result-box">
+                    <div class="result-val" id="sell-excl">$200.00</div>
+                    <div class="result-label">Net Sell Price (Excl GST)</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-val" id="sell-incl" style="color: #60a5fa;">$230.00</div>
+                    <div class="result-label">Retail Price (Incl 15% GST)</div>
+                </div>
+            </div>
         </div>
-        <div class="input-group">
-          <label>Desired Margin (%)</label>
-          <input type="number" id="margin" value="50" oninput="calculate()">
-        </div>
-      </div>
-      <div class="results">
-        <div class="result-box" style="margin-bottom: 16px;">
-          <div class="result-val" id="sell-excl">$0.00</div>
-          <div class="result-label">Sell Price (GST Excl)</div>
-        </div>
-        <div class="result-box">
-          <div class="result-val" id="sell-incl" style="color: #60a5fa;">$0.00</div>
-          <div class="result-label">Retail Price (15% GST Incl)</div>
-        </div>
-      </div>
     </div>
-  </div>
-
 </main>
 
 <footer>
-  <div class="container">
     <p>&copy; 2026 SmartCloud Suites. // High-Authority Retail Intelligence.</p>
-  </div>
 </footer>
 
 <script>
-  function calculate() {
-    const cost = parseFloat(document.getElementById('cost').value) || 0;
-    const margin = parseFloat(document.getElementById('margin').value) || 0;
-    
-    // Formula: Sell = Cost / (1 - Margin/100)
-    let sellExcl = 0;
-    if (margin < 100) {
-      sellExcl = cost / (1 - (margin / 100));
+    function calculate() {
+        const cost = parseFloat(document.getElementById('cost').value) || 0;
+        const margin = parseFloat(document.getElementById('margin').value) || 0;
+        let sellExcl = 0;
+        if (margin < 100) { sellExcl = cost / (1 - (margin / 100)); }
+        const sellIncl = sellExcl * 1.15;
+        document.getElementById('sell-excl').innerText = '$' + sellExcl.toFixed(2);
+        document.getElementById('sell-incl').innerText = '$' + sellIncl.toFixed(2);
     }
-    
-    const sellIncl = sellExcl * 1.15; // NZ 15% GST
-
-    document.getElementById('sell-excl').innerText = '$' + sellExcl.toFixed(2);
-    document.getElementById('sell-incl').innerText = '$' + sellIncl.toFixed(2);
-  }
-  calculate();
+    calculate();
 </script>
 
-<script src="../assets/js/suite-nav.js"></script>
 </body>
 </html>
