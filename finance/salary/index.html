@@ -45,7 +45,7 @@
       --pink: #fd79a8;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
+    body { padding-top: 50px;
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
@@ -294,7 +294,7 @@
 
     /* PRINT STYLES */
     @media print {
-      body { background: white; color: black; }
+      body { padding-top: 50px; background: white; color: black; }
       header, .hero, .period-toggle, .form-group, .checkbox-row, .ad-zone, .seo-section, footer, .mortgage-cta, button { display: none !important; }
       .main-grid { display: block; }
       .card { border: none; box-shadow: none; background: transparent; padding: 0; }

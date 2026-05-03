@@ -6,37 +6,48 @@
     let rootPath = './';
     if (path.includes('/finance/') || path.includes('/fun/') || path.includes('/creative/')) {
         rootPath = '../../';
+        if (path.split('/').filter(Boolean).length === 2) { 
+             rootPath = '../';
+        }
     }
 
     const styles = `
         #global-suite-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 44px;
             background: #050508;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 8px 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            z-index: 10000;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            backdrop-filter: blur(8px);
         }
         #global-suite-nav a {
-            color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
-            transition: all 0.2s;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: 0.2s;
         }
         #global-suite-nav a:hover { color: #fff; }
         #global-suite-nav a.active { color: #0ea5e9; }
         #global-suite-nav .dot {
-            width: 4px; height: 4px; border-radius: 50%; background: currentColor;
+            width: 5px; height: 5px; border-radius: 50%; background: currentColor;
         }
         @media (max-width: 600px) {
-            #global-suite-nav { gap: 12px; font-size: 0.65rem; padding: 6px 8px; }
+            #global-suite-nav { gap: 12px; }
+            #global-suite-nav a { font-size: 10px; letter-spacing: 1px; }
         }
     `;
 
@@ -45,19 +56,19 @@
     document.head.appendChild(styleSheet);
 
     suiteNav.innerHTML = `
-        <a href="${rootPath}index.html" class="${!path.includes('/finance/') && !path.includes('/fun/') && !path.includes('/creative/') ? 'active' : ''}">
+        <a href="${rootPath}index.html" class="${path.endsWith('index.html') && !path.includes('/finance/') && !path.includes('/fun/') && !path.includes('/creative/') ? 'active' : ''}">
             <div class="dot"></div> Hub
         </a>
         <a href="${rootPath}finance/index.html" class="${path.includes('/finance/') ? 'active' : ''}">
             <div class="dot"></div> Finance
         </a>
         <a href="${rootPath}fun/index.html" class="${path.includes('/fun/') ? 'active' : ''}">
-            <div class="dot"></div> Fun & Viral
+            <div class="dot"></div> Fun
         </a>
         <a href="${rootPath}creative/index.html" class="${path.includes('/creative/') ? 'active' : ''}">
             <div class="dot" style="background: #8b5cf6;"></div> Creative
         </a>
     `;
 
-    document.body.insertBefore(suiteNav, document.body.firstChild);
+    document.body.appendChild(suiteNav);
 })();
