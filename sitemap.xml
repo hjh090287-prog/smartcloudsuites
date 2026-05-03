@@ -10,6 +10,12 @@
   
   <!-- Finance Branch -->
   <url>
+    <loc>https://smartcloudsuites.com/finance/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://smartcloudsuites.com/finance/percentage/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -36,6 +42,12 @@
 
   <!-- Fun Branch -->
   <url>
+    <loc>https://smartcloudsuites.com/fun/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://smartcloudsuites.com/fun/word-counter/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -50,7 +62,19 @@
 
   <!-- Creative Branch -->
   <url>
+    <loc>https://smartcloudsuites.com/creative/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://smartcloudsuites.com/creative/image-compressor/index.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://smartcloudsuites.com/creative/qr-generator/index.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

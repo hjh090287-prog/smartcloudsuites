@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative & Media Suite | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <meta name="description" content="High-performance creative utilities including Image Compressors and QR Code Generators. 100% private and fast.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/creative/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://smartcloudsuites.com/creative/">
+  <meta property="og:title" content="Creative & Media Suite | SmartCloud Suites">
+  <meta property="og:description" content="High-performance creative utilities including Image Compressors and QR Code Generators.">
+  <meta property="og:image" content="https://smartcloudsuites.com/assets/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://smartcloudsuites.com/creative/">
+  <meta property="twitter:title" content="Creative & Media Suite">
+  <meta property="twitter:description" content="High-performance creative utilities including Image Compressors and QR Code Generators.">
+  <meta property="twitter:image" content="https://smartcloudsuites.com/assets/og-image.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+  
+  <style>
+    :root {
+      --bg: #050508;
+      --card: rgba(255, 255, 255, 0.03);
+      --card-hover: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #8b5cf6; /* Creative Purple */
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-glow {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    header {
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo span { color: #0ea5e9; } /* Main brand color for logo */
+    .branch-badge { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
+
+    .hero { text-align: center; padding: 60px 0 80px; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
+    .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .tool-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 32px; text-decoration: none; color: inherit;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .tool-card:hover { background: var(--card-hover); border-color: rgba(139, 92, 246, 0.3); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .tool-card::after { content: '→'; position: absolute; bottom: 40px; right: 40px; font-size: 1.5rem; color: var(--primary); opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
+    .tool-card:hover::after { opacity: 1; transform: translateX(0); }
+    .tool-icon { font-size: 2.5rem; margin-bottom: 24px; }
+    .tool-card h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .tool-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px; }
+
+    .badge { display: inline-block; padding: 6px 12px; background: rgba(139, 92, 246, 0.1); color: var(--primary); border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+
+    .ad-space { max-width: 728px; margin: 0 auto 60px; height: 90px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+
+    footer { margin-top: auto; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    footer a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+    footer a:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">Smart<span>Cloud</span> Suites</a>
+      <div class="branch-badge">Creative & Media Tools</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Powering your <br><span>creative workflow.</span></h1>
+      <p>High-performance utilities designed for creators, marketers, and developers. Fast, free, and 100% private.</p>
+    </section>
+
+    <div class="ad-space">Advertisement - Header Leaderboard</div>
+
+    <div class="tools-grid">
+      
+      <!-- IMAGE COMPRESSOR -->
+      <a href="image-compressor/index.html" class="tool-card">
+        <div class="badge">Privacy First</div>
+        <div class="tool-icon">🖼️</div>
+        <h2>Image Compressor</h2>
+        <p>Shrink image file sizes by up to 90% without losing quality. 100% private browser-based compression.</p>
+      </a>
+
+      <!-- QR GENERATOR -->
+      <a href="qr-generator/index.html" class="tool-card">
+        <div class="badge">High Traffic</div>
+        <div class="tool-icon">📱</div>
+        <h2>QR Code Generator</h2>
+        <p>Create custom, high-resolution QR codes for URLs, text, and contact info instantly.</p>
+      </a>
+
+    </div>
+
+    <div class="ad-space">Advertisement - Footer Leaderboard</div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 SmartCloud Suites.</p>
+      <p style="margin-top: 10px;">
+        <a href="../privacy.html">Privacy Policy</a> | 
+        <a href="../contact.html">Contact Support</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/suite-nav.js"></script>
+</body>
+</html>

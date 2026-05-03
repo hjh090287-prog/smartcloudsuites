@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart QR Code Generator | Free & Custom | SmartCloud Suites</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <meta name="description" content="Generate custom, high-resolution QR codes instantly. Customize colors and download for marketing, business cards, and events. 100% Free.">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://smartcloudsuites.com/creative/qr-generator/">
+  
+  <!-- SEO / Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smart QR Code Generator | SmartCloud Suites">
+  <meta property="og:description" content="The fastest, easiest way to generate custom QR codes for your business.">
+  <meta property="og:image" content="https://smartcloudsuites.com/assets/og-image.png">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6360867122279172" crossorigin="anonymous"></script>
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text-main: #f0f0f5;
+      --text-muted: rgba(240,240,245,0.45);
+      --primary: #8b5cf6; /* Creative Purple */
+      --primary-hover: #7c3aed;
+      --success: #10b981;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    header {
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; font-size: 1.25rem; color: var(--text-main); letter-spacing: -0.5px; text-decoration: none; }
+    .logo span { color: var(--primary); }
+
+    .hero { text-align: center; padding: 60px 0 40px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+    .ad-banner {
+      margin: 20px auto 40px; width: 100%; min-height: 90px;
+      background: rgba(255,255,255,0.02); border: 1px dashed var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 0.8rem; border-radius: 12px; text-transform: uppercase; letter-spacing: 2px;
+    }
+
+    /* GRID LAYOUT */
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 32px;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .app-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .section-title {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; color: var(--text-main);
+      display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
+    }
+
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+    
+    input[type="text"], input[type="url"] {
+      width: 100%; padding: 16px;
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 12px;
+      font-family: inherit; font-size: 1.1rem; color: var(--text-main); transition: 0.2s;
+    }
+    input[type="text"]:focus, input[type="url"]:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+    }
+
+    .color-picker-group {
+      display: flex; gap: 20px;
+    }
+    .color-picker-wrapper {
+      flex: 1; display: flex; flex-direction: column; gap: 8px;
+    }
+    input[type="color"] {
+      -webkit-appearance: none; border: none; width: 100%; height: 50px; border-radius: 12px; cursor: pointer;
+      background: rgba(0,0,0,0.3); padding: 4px;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    input[type="color"]::-webkit-color-swatch { border: 1px solid var(--border); border-radius: 8px; }
+
+    /* PREVIEW PANEL */
+    .preview-panel {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #qrcode-container {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      display: inline-block;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      min-width: 256px;
+      min-height: 256px;
+      display: flex; justify-content: center; align-items: center;
+    }
+    #qrcode-container img {
+      max-width: 100%; height: auto;
+    }
+
+    .btn-download {
+      width: 100%; background: var(--success); color: white; padding: 16px; border-radius: 12px;
+      font-size: 1.1rem; font-weight: 800; border: none; cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16,185,129,0.2); }
+
+    /* SEO CONTENT */
+    .seo-content {
+      background: #111118; border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-top: 60px;
+    }
+    .seo-content h3 { font-size: 1.5rem; margin-bottom: 24px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 8px; }
+    .seo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+    .seo-grid h4 { font-size: 1.1rem; margin-bottom: 12px; }
+    .seo-grid p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+    footer { text-align: center; padding: 60px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; margin-top: 60px;}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="../../index.html" class="logo">Smart<span>Cloud</span> Suites</a>
+    <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Creative Utility</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <h1>Smart QR Code Generator</h1>
+    <p>Create professional, custom QR codes instantly. No sign-ups required. Your data never leaves your browser.</p>
+    <button onclick="shareTool()" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 100px; margin-top: 20px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">🔗 Share this Tool</button>
+  </div>
+
+  <div class="ad-banner">ADVERTISEMENT - HEADER LEADERBOARD</div>
+
+  <div class="app-grid">
+    <!-- LEFT: CONTROLS -->
+    <div class="card">
+      <h2 class="section-title">✏️ Design Your QR Code</h2>
+      
+      <div class="form-group">
+        <label>Website URL or Text</label>
+        <input type="text" id="qr-text" placeholder="https://yourwebsite.com" value="https://smartcloudsuites.com">
+      </div>
+
+      <div class="color-picker-group form-group">
+        <div class="color-picker-wrapper">
+          <label>QR Color</label>
+          <input type="color" id="qr-color-dark" value="#000000">
+        </div>
+        <div class="color-picker-wrapper">
+          <label>Background</label>
+          <input type="color" id="qr-color-light" value="#ffffff">
+        </div>
+      </div>
+      
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 20px;">
+        Tip: Always ensure high contrast between the QR color and the background so phone cameras can read it easily.
+      </p>
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="card preview-panel">
+      <h2 class="section-title" style="width: 100%; text-align: left;">👀 Preview</h2>
+      
+      <div id="qrcode-container"></div>
+
+      <button class="btn-download" onclick="downloadQR()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Download PNG
+      </button>
+    </div>
+  </div>
+
+  <div class="ad-banner">ADVERTISEMENT - CONTENT BANNER</div>
+
+  <!-- SEO CONTENT -->
+  <section class="seo-content">
+    <h3>💡 Why use the SmartCloud QR Generator?</h3>
+    <div class="seo-grid">
+      <div>
+        <h4>Marketing Ready</h4>
+        <p>Whether you are creating restaurant menus, real estate flyers, or business cards, our high-resolution outputs ensure your QR codes scan perfectly every time, even when printed large.</p>
+      </div>
+      <div>
+        <h4>100% Privacy</h4>
+        <p>We generate the QR code entirely within your web browser using Javascript. This means your URLs and data are never sent to a server. What you create stays entirely with you.</p>
+      </div>
+      <div>
+        <h4>Custom Branding</h4>
+        <p>Don't settle for boring black and white. Match the QR code to your company's brand guidelines using our custom color selector to make your marketing materials stand out.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; 2026 SmartCloud Suites. All rights reserved. | 
+    <a href="../../privacy.html">Privacy Policy</a> | 
+    <a href="../../contact.html">Contact Support</a>
+  </div>
+</footer>
+
+<script>
+  let qrcode = null;
+
+  function generateQR() {
+    const text = document.getElementById('qr-text').value || "https://smartcloudsuites.com";
+    const colorDark = document.getElementById('qr-color-dark').value;
+    const colorLight = document.getElementById('qr-color-light').value;
+    const container = document.getElementById('qrcode-container');
+    
+    // Clear previous
+    container.innerHTML = '';
+    
+    // Create new
+    qrcode = new QRCode(container, {
+      text: text,
+      width: 256,
+      height: 256,
+      colorDark : colorDark,
+      colorLight : colorLight,
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  }
+
+  // Event Listeners for real-time generation
+  document.getElementById('qr-text').addEventListener('input', generateQR);
+  document.getElementById('qr-color-dark').addEventListener('input', generateQR);
+  document.getElementById('qr-color-light').addEventListener('input', generateQR);
+
+  // Initial generation
+  generateQR();
+
+  function downloadQR() {
+    const container = document.getElementById('qrcode-container');
+    const img = container.querySelector('img');
+    const canvas = container.querySelector('canvas');
+    
+    let url = '';
+    // Depending on browser support, QRCode.js renders as Canvas or Image
+    if (img && img.src) {
+        url = img.src;
+    } else if (canvas) {
+        url = canvas.toDataURL("image/png");
+    } else {
+        alert("Could not generate image for download.");
+        return;
+    }
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'smartcloud-qrcode.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function shareTool() {
+    const url = window.location.href;
+    const title = "Smart QR Code Generator | SmartCloud Suites";
+    if (navigator.share) {
+      navigator.share({ title: title, url: url }).catch(err => copyFallback(url));
+    } else {
+      copyFallback(url);
+    }
+  }
+
+  function copyFallback(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        prompt('Copy this link to share:', url);
+      });
+    } else {
+      prompt('Copy this link to share:', url);
+    }
+  }
+</script>
+
+<script src="../../assets/js/suite-nav.js"></script>
+</body>
+</html>
