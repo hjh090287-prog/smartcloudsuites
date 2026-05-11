@@ -120,33 +120,46 @@
 
 <main class="container">
     <section class="hero">
-        <h1>Retail Margin & GST Calculator</h1>
-        <p>A specialized tool for New Zealand business owners.</p>
+        <h1>Financial Intelligence Hub</h1>
+        <p>A curated suite of high-precision tools for New Zealand business owners and professionals.</p>
     </section>
 
-    <div class="calc-card">
-        <div class="grid">
-            <div class="inputs">
-                <div class="input-group">
-                    <label>Item Cost (GST Excl)</label>
-                    <input type="number" id="cost" value="100" oninput="calculate()">
-                </div>
-                <div class="input-group">
-                    <label>Desired Profit Margin (%)</label>
-                    <input type="number" id="margin" value="50" oninput="calculate()">
-                </div>
-            </div>
-            <div class="results">
-                <div class="result-box">
-                    <div class="result-val" id="sell-excl">$200.00</div>
-                    <div class="result-label">Net Sell Price (Excl GST)</div>
-                </div>
-                <div class="result-box">
-                    <div class="result-val" id="sell-incl" style="color: #60a5fa;">$230.00</div>
-                    <div class="result-label">Retail Price (Incl 15% GST)</div>
-                </div>
-            </div>
-        </div>
+    <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 80px;">
+        <!-- TOOL 1: MARGIN & GST -->
+        <a href="../index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: var(--primary); margin-bottom: 12px; font-size: 1.4rem;">Margin & GST Authority</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Master your retail profitability with our flagship landed cost and GST calculator.</p>
+        </a>
+
+        <!-- TOOL 2: NZ SALARY -->
+        <a href="nz-salary/index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: #60a5fa; margin-bottom: 12px; font-size: 1.4rem;">NZ Salary & PAYE</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Calculate your take-home pay, KiwiSaver contributions, and student loan repayments.</p>
+        </a>
+
+        <!-- TOOL 3: MORTGAGE -->
+        <a href="nz-mortgage/index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: #f59e0b; margin-bottom: 12px; font-size: 1.4rem;">Mortgage Repayment</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Analyze your home loan repayments with updated RBNZ interest rate projections.</p>
+        </a>
+
+        <!-- TOOL 4: INVESTMENT -->
+        <a href="investment/index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: #ec4899; margin-bottom: 12px; font-size: 1.4rem;">Investment & Compound</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Simulate long-term wealth growth using standard compound interest models.</p>
+        </a>
+
+        <!-- TOOL 5: PERCENTAGE -->
+        <a href="percentage/index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: #8b5cf6; margin-bottom: 12px; font-size: 1.4rem;">Percentage Tools</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Simple, high-speed percentage calculators for everyday business adjustments.</p>
+        </a>
+
+        <!-- TOOL 6: FREELANCE -->
+        <a href="freelance/index.html" class="calc-card" style="text-decoration: none; transition: 0.3s; display: block; height: 100%;">
+            <h3 style="color: #10b981; margin-bottom: 12px; font-size: 1.4rem;">Freelance Invoice</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Generate professional GST-compliant invoices for New Zealand contractors.</p>
+        </a>
     </div>
 </main>
 
