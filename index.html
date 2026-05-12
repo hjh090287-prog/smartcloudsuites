@@ -145,6 +145,20 @@
         .seo-content li { margin-bottom: 16px; color: var(--text-muted); font-size: 1.1rem; }
         .seo-content strong { color: white; }
         
+        /* INTELLIGENCE LIBRARY GRID */
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+        @media (max-width: 640px) {
+            .article-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+
+        .article-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 32px; text-decoration: none;
+            transition: 0.3s; display: block;
+        }
+        .article-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
         footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); }
     </style>
 </head>
@@ -263,63 +277,63 @@
             <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Deep-dive analysis and compliance guides for the New Zealand retail and finance sectors.</p>
         </div>
 
-        <div class="article-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+        <div class="article-grid">
             <!-- CARD 1 -->
-            <a href="articles/interest-rates.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/interest-rates.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Finance // 2026</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">Interest Rate Volatility & NZ Retail Strategy</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Navigating RBNZ shifts and their impact on consumer purchasing power.</p>
             </a>
             <!-- CARD 2 -->
-            <a href="articles/furniture-safety.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/furniture-safety.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Compliance // Safety</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">NZ Furniture Safety Standards Guide</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Essential AS/NZS compliance for furniture importers and retailers.</p>
             </a>
             <!-- CARD 3 -->
-            <a href="articles/digital-transformation.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/digital-transformation.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Technology // Transformation</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">The 2026 NZ Retail Digital Shift</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Analyzing AI integration and omnichannel logistics in NZ retail.</p>
             </a>
             <!-- CARD 4 -->
-            <a href="articles/margin-optimization.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/margin-optimization.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Profitability // Optimization</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">Margin Optimization Strategies</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Mastering the math of markup vs margin for sustained growth.</p>
             </a>
             <!-- CARD 5 -->
-            <a href="articles/gst-compliance.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/gst-compliance.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Taxation // GST Law</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">NZ GST Compliance: 2026 Update</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Navigating IRD requirements and cash flow management.</p>
             </a>
             <!-- CARD 6 -->
-            <a href="articles/customs-duty.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/customs-duty.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Logistics // Customs</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">NZ Customs Duty & Importation</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Understanding HS codes and border taxes for importers.</p>
             </a>
             <!-- CARD 7 -->
-            <a href="articles/supply-chain.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/supply-chain.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Logistics // Supply Chain</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">NZ Supply Chain Resilience</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Managing Asia-NZ logistics and port congestion in 2026.</p>
             </a>
             <!-- CARD 8 -->
-            <a href="articles/customer-experience.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/customer-experience.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Customer Experience // UX</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">Winning in the NZ Market</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Leveraging the CGA for trust and long-term loyalty.</p>
             </a>
             <!-- CARD 9 -->
-            <a href="articles/inventory-management.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/inventory-management.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Operations // Stock</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">Inventory Optimization for NZ SMEs</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Managing aging stock and safety buffers for profitability.</p>
             </a>
             <!-- CARD 10 -->
-            <a href="articles/retail-trends-2026.html" class="article-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-decoration: none; transition: 0.3s; display: block;">
+            <a href="articles/retail-trends-2026.html" class="article-card">
                 <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Future // Trends</div>
                 <h3 style="color: white; font-size: 1.3rem; margin-bottom: 12px;">The Future of NZ Retail: 2026</h3>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Analyzing the 'Green Margin' and AR showrooms.</p>
